@@ -1,0 +1,25 @@
+@import 'normalize.css'; /* Si tu utilises un préprocesseur comme Sass */
+
+/* RESET CSS - Pour éliminer les marges, paddings et autres styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Pour inclure les bordures et paddings dans la taille totale */
+  }
+
+  html, body {
+    height: 100vh;  /* L'élément html et body prennent toute la hauteur */
+    margin: 0; /* Supprime les marges */
+    padding: 0; /* Supprime le padding */
+}
+
+
+/* Styles globaux */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
