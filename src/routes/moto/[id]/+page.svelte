@@ -1,0 +1,111 @@
+<script>
+    export let data;
+    let moto = data.moto;
+    const baseURL = 'http://localhost:5001';
+
+     
+  </script>
+  
+  <div class="container">
+    <h2>{moto.nom}</h2>
+  
+    <img class="moto-img" src={baseURL + moto.image} alt={moto.nom} />
+
+  
+    <div class="info">
+      <p><strong>Modèle :</strong> {moto.modele}</p>
+      <p><strong>Marque :</strong> {moto.marque}</p>
+      <p><strong>Année :</strong> {moto.annee}</p>
+      <p><strong>Couleur :</strong> {moto.couleur}</p>
+      <p><strong>Disponible :</strong> {moto.disponible ? "Oui" : "Non"}</p>
+  
+      <p><strong>💰 Tarifs :</strong></p>
+      <ul>
+        <li>• 1 jour : {moto.tarifs.unJour} €</li>
+        <li>• 3 jours : {moto.tarifs.troisJours} €</li>
+        <li>• 4-5 jours : {moto.tarifs.quatreCinqJours} €</li>
+        <li>• 1 semaine : {moto.tarifs.uneSemaine} €</li>
+      </ul>
+  
+      <p><strong>⚙️ Caractéristiques :</strong></p>
+      <ul>
+        <li>• Moteur : {moto.caracteristiques.moteur}</li>
+        <li>• Cylindrée : {moto.caracteristiques.cylindree}cc</li>
+        <li>• Transmission : {moto.caracteristiques.transmission}</li>
+        <li>• Poids : {moto.caracteristiques.poids}</li>
+        <li>• Autonomie : {moto.caracteristiques.autonomie}</li>
+        <li>• Réservoir : {moto.caracteristiques.reservoir}</li>
+      </ul>
+  
+      <p><strong>📦 Équipements inclus :</strong></p>
+      <ul>
+        {#each moto.equipements as item}
+          <li>• {item}</li>
+        {/each}
+      </ul>
+    </div>
+  
+    <div class="buttons">
+      <button on:click={() => window.location.href = `/reservation/${moto._id}`}>Réserver</button>
+      <button on:click={() => window.location.href = '/catalogue'}>Retour au catalogue</button>
+    </div>
+  </div>
+  
+  <style>
+
+:global(html, body ){
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .moto-img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  
+    .info p {
+      margin: 5px 0;
+    }
+  
+    ul {
+      margin-bottom: 15px;
+    }
+  
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+  
+    button {
+      padding: 10px 20px;
+      background-color: #04C9AF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  
+    button:hover {
+      background-color: #30968D;
+    }
+  </style>
+  
