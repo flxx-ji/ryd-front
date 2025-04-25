@@ -28,19 +28,49 @@
       }
     });
   
-    const submitReservation = () => {
-      const data = {
-        clientName,
-        clientFirstName,
-        clientEmail,
-        clientPhone,
-        reservationDateDebut,
-        reservationDateFin,
-        motoId: moto._id
-      };
-      console.log("✅ Données à envoyer :", data);
-      // TODO : envoyer à ton backend
-    };
+    const submitReservation = async () => {
+  const data = {
+    moto: {
+      nom: moto.nom,
+      modele: moto.modele,
+      couleur: moto.couleur,
+      annee: moto.annee,
+      tarifs: moto.tarifs,
+    },
+    customer: {
+      name: clientName,
+      firstName: clientFirstName,
+      email: clientEmail,
+      phone: clientPhone,
+    },
+    dates: {
+      debut: reservationDateDebut,
+      fin: reservationDateFin
+    }
+  };
+
+  console.log("✅ Données à envoyer :", data); // 🟢 ici c’est bon
+
+  try {
+    const res = await fetch('http://localhost:5001/api/stripe/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (result.url) {
+      window.location.href = result.url;
+    } else {
+      alert("Erreur lors de la redirection vers Stripe.");
+    }
+  } catch (err) {
+    console.error("Erreur lors du paiement :", err);
+    alert("Une erreur est survenue.");
+  }
+};
+
   </script>
   
   {#if loading}
