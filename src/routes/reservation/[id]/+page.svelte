@@ -11,7 +11,9 @@
     let clientPhone = '';
     let reservationDateDebut = '';
     let reservationDateFin = '';
-  
+    let reservationHeureDebut = '09:00';
+    let reservationHeureFin = '18:00';
+
     // On récupère l'ID depuis l'URL
     let id;
     $: id = $page.params.id;
@@ -29,25 +31,28 @@
     });
   
     const submitReservation = async () => {
-  const data = {
-    moto: {
-      nom: moto.nom,
-      modele: moto.modele,
-      couleur: moto.couleur,
-      annee: moto.annee,
-      tarifs: moto.tarifs,
-    },
-    customer: {
-      name: clientName,
-      firstName: clientFirstName,
-      email: clientEmail,
-      phone: clientPhone,
-    },
-    dates: {
-      debut: reservationDateDebut,
-      fin: reservationDateFin
-    }
-  };
+      const body = {
+  moto: {
+    nom: moto.nom,
+    modele: moto.modele,
+    couleur: moto.couleur,
+    annee: moto.annee,
+    tarifs: moto.tarifs
+  },
+  customer: {
+    name: clientName,
+    firstName: clientFirstName,
+    email: clientEmail,
+    phone: clientPhone
+  },
+  dates: {
+    debut: reservationDateDebut,
+    fin: reservationDateFin,
+    heureDebut: reservationHeureDebut,
+    heureFin: reservationHeureFin
+  }
+};
+
 
   console.log("✅ Données à envoyer :", data); // 🟢 ici c’est bon
 
@@ -55,7 +60,7 @@
     const res = await fetch('http://localhost:5001/api/stripe/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(body)
     });
 
     const result = await res.json();
@@ -99,6 +104,12 @@
   
         <label for="reservationDateFin">Date de fin :</label>
         <input id="reservationDateFin" type="date" bind:value={reservationDateFin} required />
+
+        <label for="reservationHeureDebut">Heure de début :</label>
+        <input id="reservationHeureDebut" type="time" bind:value={reservationHeureDebut} required />
+
+        <label for="reservationHeureFin">Heure de fin :</label>
+        <input id="reservationHeureFin" type="time" bind:value={reservationHeureFin} required />
   
         <button type="submit">Confirmer la réservation</button>
       </form>
