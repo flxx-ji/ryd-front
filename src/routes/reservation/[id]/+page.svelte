@@ -1,10 +1,11 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+	// import { defaultClientConditions } from 'vite';
   
     let moto = null;
     let loading = true;
-  
+    let clientId = null;
     let clientName = '';
     let clientFirstName = '';
     let clientEmail = '';
@@ -33,6 +34,7 @@
     const submitReservation = async () => {
       const body = {
   moto: {
+    _id: moto._id,
     nom: moto.nom,
     modele: moto.modele,
     couleur: moto.couleur,
@@ -40,6 +42,7 @@
     tarifs: moto.tarifs
   },
   customer: {
+    _id: clientId,
     name: clientName,
     firstName: clientFirstName,
     email: clientEmail,
@@ -54,7 +57,7 @@
 };
 
 
-  console.log("✅ Données à envoyer :", data); // 🟢 ici c’est bon
+  console.log("✅ Données à envoyer :", body); // 🟢 ici c’est bon
 
   try {
     const res = await fetch('http://localhost:5001/api/stripe/create-checkout-session', {
