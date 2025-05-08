@@ -3,6 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 
+	// 🔐 Utilisation centralisée du token
+	import { getAdminToken } from '$lib/utils/auth';
+
 	let reservations = [];
 	let loading = true;
 	let error = '';
@@ -12,10 +15,10 @@
 		await fetchReservations();
 	});
 
-	// 🔄 Recharge les réservations (appelé aussi après suppression ou update)
+	// 🔄 Recharge les réservations (appelée aussi après suppression ou update)
 	async function fetchReservations() {
 		try {
-			const token = localStorage.getItem('token');
+			const token = getAdminToken(); // 🔐 Utilise le token de manière propre
 
 			const res = await fetch('http://localhost:5001/api/admin/reservations', {
 				headers: {
@@ -36,7 +39,7 @@
 	// 🟢 Met à jour le statut d'une réservation
 	async function updateStatut(id: string, nouveauStatut: string) {
 		try {
-			const token = localStorage.getItem('token');
+			const token = getAdminToken();
 			await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
 				method: 'PUT',
 				headers: {
@@ -58,7 +61,7 @@
 		if (!confirmation) return;
 
 		try {
-			const token = localStorage.getItem('token');
+			const token = getAdminToken();
 			const res = await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
 				method: 'DELETE',
 				headers: {
@@ -73,16 +76,12 @@
 		}
 	}
 </script>
-
-<!-- 🖼️ Vue HTML : si c'est en chargement -->
 {#if loading}
 	<p>⏳ Chargement des réservations...</p>
 
-<!-- 🛑 En cas d'erreur -->
 {:else if error}
-	<p class="text-red-600">❌ {error}</p>
+	<p class="text-danger">❌ {error}</p>
 
-<!-- ✅ Sinon, afficher les réservations -->
 {:else}
 	<h1 class="text-xl font-bold mb-4">📋 Réservations</h1>
 	<table class="w-full table-auto border">

@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
+    import { getAdminToken } from '$lib/utils/auth';
   
     let moto = null;
     let loading = true;
@@ -17,7 +18,7 @@
     // 📥 Récupérer les données de la moto
     onMount(async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = getAdminToken();
         const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });

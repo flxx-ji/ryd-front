@@ -2,21 +2,23 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
+	// 🔐 Centralisation de l'accès au token
+	import { getAdminToken } from '$lib/utils/auth';
+
 	let clients = [];
 	let loading = true;
 	let error = '';
 
-	const token = localStorage.getItem('token');
-
-	// ✅ Chargement des clients à l'arrivée
+	// ✅ Chargement des clients dès le montage de la page
 	onMount(async () => {
 		await chargerClients();
 	});
 
-	// 🔁 Fonction réutilisable pour recharger la liste
+	// 🔄 Fonction de récupération des clients
 	async function chargerClients() {
 		try {
 			loading = true;
+			const token = getAdminToken(); // 💡 récupération du token proprement
 			const res = await fetch('http://localhost:5001/api/admin/clients', {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -32,9 +34,10 @@
 	}
 
 	// 🗑️ Supprimer un client
-	async function supprimerClient(id) {
+	async function supprimerClient(id: string) {
 		if (!confirm('❗ Supprimer ce client ?')) return;
 		try {
+			const token = getAdminToken();
 			const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
 				method: 'DELETE',
 				headers: {
@@ -42,30 +45,26 @@
 				}
 			});
 			if (!res.ok) throw new Error("Échec de la suppression");
-			await chargerClients(); // 🔄 On recharge la liste après suppression
+			await chargerClients();
 		} catch (err) {
 			alert('Erreur lors de la suppression : ' + err.message);
 		}
 	}
 
-	// ✏️ Redirection vers le formulaire d’édition (à créer ensuite)
-	function modifierClient(id) {
+	// ✏️ Redirection vers le formulaire d'édition
+	function modifierClient(id: string) {
 		goto(`/admin/clients/${id}`);
 	}
 </script>
 
-<!-- 🕒 Chargement -->
 {#if loading}
 	<p>Chargement des clients...</p>
 
-<!-- ❌ Erreur -->
 {:else if error}
-	<p class="text-red-600">❌ {error}</p>
+	<p class="text-danger">❌ {error}</p>
 
-<!-- ✅ Liste des clients -->
 {:else}
 	<h1 class="text-xl font-bold mb-4">👥 Clients</h1>
-
 	<table class="w-full table-auto border">
 		<thead class="bg-gray-100">
 			<tr>

@@ -1,22 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { getAdminToken } from '$lib/utils/auth';
 
-	let motos = [];
+	let moto = null;
 	let loading = true;
 	let error = '';
 
-	// ✅ Appel API pour récupérer toutes les motos à l'ouverture
+	// 🔍 Récupère l'ID dans l'URL dynamique
+	const id = $page.params.id;
+
+	// 🔄 Chargement des infos de la moto à l'arrivée
 	onMount(async () => {
 		try {
-			const token = localStorage.getItem('token');
-			const res = await fetch('http://localhost:5001/api/admin/motos', {
+			const token = getAdminToken();
+			const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
 			});
-			if (!res.ok) throw new Error('Erreur lors du chargement');
-			motos = await res.json();
+
+			if (!res.ok) throw new Error('Erreur lors du chargement de la moto');
+			moto = await res.json();
 		} catch (err) {
 			error = err.message;
 		} finally {
@@ -24,58 +30,40 @@
 		}
 	});
 
-	// 🗑️ Supprimer une moto
-	async function supprimerMoto(id: string) {
-		if (!confirm('Voulez-vous vraiment supprimer cette moto ?')) return;
-		try {
-			const token = localStorage.getItem('token');
-			const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
-				method: 'DELETE',
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
-			});
-			if (!res.ok) throw new Error('Erreur lors de la suppression');
-			motos = motos.filter((m) => m._id !== id); // mise à jour locale
-		} catch (err) {
-			alert('Erreur : ' + err.message);
-		}
-	}
+	// 🔙 Retour à la liste
+	const retour = () => goto('/admin/motos');
 </script>
 
-<!-- 🔄 Affichage conditionnel -->
+<!-- 🔄 Chargement -->
 {#if loading}
-	<p>⏳ Chargement des motos...</p>
+	<p>⏳ Chargement des données...</p>
+
+<!-- ❌ Erreur -->
 {:else if error}
 	<p class="text-danger">❌ {error}</p>
-{:else}
-	<h2 class="mb-3">🏍️ Liste des Motos</h2>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Nom</th>
-				<th>Modèle</th>
-				<th>Marque</th>
-				<th>Année</th>
-				<th>Disponible</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each motos as m}
-				<tr>
-					<td>{m.nom}</td>
-					<td>{m.modele}</td>
-					<td>{m.marque}</td>
-					<td>{m.annee}</td>
-					<td>{m.disponible ? '✅' : '❌'}</td>
-					<td>
-						<button class="btn btn-sm btn-primary me-1" on:click={() => goto(`/admin/motos/${m._id}`)}>Voir</button>
-						<button class="btn btn-sm btn-warning me-1" on:click={() => goto(`/admin/motos/${m._id}/edit`)}>Modifier</button>
-						<button class="btn btn-sm btn-danger" on:click={() => supprimerMoto(m._id)}>Supprimer</button>
-					</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
+
+<!-- ✅ Affichage de la moto -->
+{:else if moto}
+	<div class="container my-4">
+		<h2 class="mb-3">🏍️ {moto.nom} ({moto.modele})</h2>
+		<ul class="list-group">
+			<li class="list-group-item"><strong>Marque :</strong> {moto.marque}</li>
+			<li class="list-group-item"><strong>Année :</strong> {moto.annee}</li>
+			<li class="list-group-item"><strong>Couleur :</strong> {moto.couleur}</li>
+			<li class="list-group-item"><strong>Disponible :</strong> {moto.disponible ? 'Oui' : 'Non'}</li>
+			<li class="list-group-item"><strong>Tarifs :</strong>
+				<ul>
+					<li>1 jour : {moto.tarifs.unJour} €</li>
+					<li>3 jours : {moto.tarifs.troisJours} €</li>
+					<li>4-5 jours : {moto.tarifs.quatreCinqJours} €</li>
+					<li>1 semaine : {moto.tarifs.uneSemaine} €</li>
+				</ul>
+			</li>
+			<li class="list-group-item"><strong>Image :</strong><br>
+				<img src={`http://localhost:5001${moto.image}`} alt="moto" width="300" />
+			</li>
+		</ul>
+
+		<button class="btn btn-secondary mt-4" on:click={retour}>↩️ Retour</button>
+	</div>
 {/if}

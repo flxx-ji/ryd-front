@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+    import { setAdminToken } from '$lib/utils/auth';
 
 	// 🔐 Variables liées au formulaire
 	let email = '';
@@ -35,7 +36,7 @@
 			}
 
 			// ✅ Connexion réussie → stockage du token + redirection
-			localStorage.setItem('adminToken', data.token);
+			setAdminToken(data.token);
 			localStorage.setItem('adminNom', data.nom);
 
 			// ⏩ Redirection vers le dashboard admin
