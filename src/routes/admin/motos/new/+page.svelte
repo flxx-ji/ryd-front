@@ -56,10 +56,22 @@
 <div class="container my-5">
 	<h2 class="mb-4">➕ Ajouter une moto</h2>
 
+    <!-- ✅ Affichage des messages de succès/erreur ici, avant le form -->
+	{#if success}
+    <p class="text-success mt-3">{success}</p>
+{/if}
+{#if error}
+    <p class="text-danger mt-3">{error}</p>
+{/if}
+
 	<form on:submit|preventDefault={ajouterMoto} class="row g-3">
 		<div class="col-md-6">
 			<label class="form-label">Nom</label>
 			<input class="form-control" bind:value={nom} required />
+		</div>
+		<div class="col-md-6">
+			<label class="form-label">Marque</label>
+			<input class="form-control" bind:value={marque} required />
 		</div>
 
 		<div class="col-md-6">
@@ -110,11 +122,6 @@
 			<a class="btn btn-secondary ms-2" on:click={() => goto('/admin/motos')}>Annuler</a>
 		</div>
 
-		{#if success}
-			<p class="text-success mt-3">{success}</p>
-		{/if}
-		{#if error}
-			<p class="text-danger mt-3">{error}</p>
-		{/if}
+		 
 	</form>
 </div>

@@ -131,6 +131,20 @@
   
         {#if success}
           <p class="text-success mt-3">{success}</p>
+
+
+          <!-- Affichage des caractéristiques enregistrées -->
+<!-- Affichage des caractéristiques enregistrées -->
+<div class="col-12 mt-4">
+    <h5>🔍 Aperçu des caractéristiques enregistrées</h5>
+    <ul class="list-group">
+      {#each Object.entries(moto.caracteristiques || {}) as [cle, valeur]}
+        <li class="list-group-item">{cle} : {valeur}</li>
+      {/each}
+    </ul>
+  </div>
+  
+  
         {/if}
       </form>
     </div>
