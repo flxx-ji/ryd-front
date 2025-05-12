@@ -2,7 +2,7 @@
 	import MotoCard from '$lib/components/MotoCard.svelte';
 	import { onMount } from 'svelte';
 
-	let titreImage = "http://localhost:5001/uploads/catalogue4.png";
+	let titreImage = "http://localhost:5001/uploads/CatalogueF.webp";
 	let motos = [];
 
 	onMount(() => {

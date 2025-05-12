@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	let titreImage = "http://localhost:5001/uploads/A-propos4.webp";
+	let titreImage = "http://localhost:5001/uploads/AproposF.webp";
 
 	onMount(() => {
 		document.body.style.backgroundImage = "url('http://localhost:5001/uploads/apropos2.webp')";

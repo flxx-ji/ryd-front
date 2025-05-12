@@ -143,7 +143,7 @@
     }
   
     button {
-      background-color: #04C9AF;
+      background-color: #D4AF37;
       color: white;
       font-weight: bold;
       padding: 12px;

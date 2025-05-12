@@ -36,7 +36,7 @@
   }
 
   .socials a {
-    color: #04C9AF;
+    color: #D4AF37;
     transition: transform 0.3s;
   }
 

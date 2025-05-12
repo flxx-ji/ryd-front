@@ -96,7 +96,7 @@
   
     button {
       padding: 10px 20px;
-      background-color: #04C9AF;
+      background-color: #D4AF37;
       color: white;
       border: none;
       border-radius: 5px;
@@ -105,7 +105,9 @@
     }
   
     button:hover {
-      background-color: #30968D;
-    }
+	background-color: #D4AF37;
+	color: #000;
+	box-shadow: 0 0 10px #D4AF37;
+}
   </style>
   

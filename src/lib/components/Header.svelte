@@ -63,7 +63,7 @@
 	.logo {
 		font-size: 1.3rem;
 		font-weight: bold;
-		color: #04C9AF;
+		color: #D4AF37;
 	}
 
 	/* Desktop */
@@ -81,8 +81,8 @@
 
 	.nav-desktop a:hover,
 	.nav-desktop a.selected {
-		color: #04C9AF;
-		border-bottom: 2px solid #04C9AF;
+		color: #D4AF37;
+		border-bottom: 2px solid #D4AF37;
 	}
 
 	/* Burger */
@@ -90,7 +90,7 @@
 		display: none;
 		font-size: 2rem;
 		cursor: pointer;
-		color: #04C9AF;
+		color: #D4AF37;
 		background: transparent;
 		border: none;
 		z-index: 99999;
@@ -122,7 +122,7 @@
 		top: 1rem;
 		right: 1.5rem;
 		font-size: 2rem;
-		color: #04C9AF;
+		color: #D4AF37;
 		background: transparent;
 		border: none;
 		cursor: pointer;
@@ -146,8 +146,8 @@
 
 	.mobile-nav a:hover,
 	.mobile-nav a.selected {
-		color: #04C9AF;
-		border-bottom: 2px solid #04C9AF;
+		color: #D4AF37;
+		border-bottom: 2px solid #D4AF37;
 	}
 
 	/* Responsive */

@@ -114,7 +114,7 @@
 
 		<div class="col-12">
 			<label class="form-label">📸 Image</label>
-			<input type="file" class="form-control" accept="image/*" on:change={(e) => image = e.target.files[0]} />
+			<input type="file" class="form-control" accept="image/*" on:change={(e) => image = (e.target as HTMLInputElement).files[0]} />
 		</div>
 
 		<div class="col-12 mt-4">
