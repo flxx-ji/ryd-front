@@ -7,6 +7,7 @@
 		{ name: 'Services', href: '/services' },
 		{ name: 'Catalogue', href: '/catalogue' },
 		{ name: 'Custom', href: '/custom' },
+		{ name: 'Evenements', href: '/evenements' },
 		{ name: 'À propos', href: '/apropos' }
 	];
 

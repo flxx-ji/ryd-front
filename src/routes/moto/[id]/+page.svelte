@@ -46,7 +46,9 @@
     </div>
   
     <div class="buttons">
-      <button on:click={() => window.location.href = `/reservation/${moto._id}`}>Réserver</button>
+      <!-- <button on:click={() => window.location.href = `/reservation/${moto._id}`}>Réserver</button> -->
+      <button on:click={() => window.location.href = `/under-construction` }>Réserver</button>
+
       <button on:click={() => window.location.href = '/catalogue'}>Retour au catalogue</button>
     </div>
   </div>

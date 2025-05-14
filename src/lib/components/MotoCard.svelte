@@ -27,7 +27,9 @@
     {#if isHovered}
       <div class="button-container">
         <button on:click={() => window.location.href = `/moto/${moto._id}`}>Voir plus</button>
-        <button on:click={() => window.location.href = `/reservation/${moto._id}`}>Réserver</button>
+        <button on:click={() => window.location.href = `/under-construction` }>Réserver</button>
+
+        <!-- <button on:click={() => window.location.href = `/reservation/${moto._id}`}>Réserver</button> -->
       </div>
     {/if}
   </div>
