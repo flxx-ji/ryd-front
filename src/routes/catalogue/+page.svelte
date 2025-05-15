@@ -33,7 +33,10 @@
  
 <div class="page-section">
 	<div class="titre-section">
-		<img src={titreImage} alt="Catalogue" class="titre" />
+		<!-- <img src={titreImage} alt="Catalogue" class="titre" /> -->
+
+		<img src={`${baseURL}${moto.image}`} alt={moto.nom} />
+
 	</div>
 
 	<div class="catalogue">

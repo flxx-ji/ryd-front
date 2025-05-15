@@ -16,7 +16,8 @@
 
 <div
   class="moto-card"
-  style="background-image: url({imageURL});"
+  style={`background-image: url("${imageURL}")`}
+
   on:mouseover={() => isHovered = true}
   on:mouseleave={() => isHovered = false}
 >
