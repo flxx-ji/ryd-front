@@ -23,7 +23,7 @@
 	onMount(() => {
 		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/eventBackground.webp')";
 		
-		document.body.style.backgroundImage = `url('${baseURL}/uploads/eventBackground.webp')`;
+		document.body.style.backgroundImage = `url('${baseURL}/uploads/services2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';
