@@ -77,6 +77,6 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding-top: 0;
-		border: 1px dashed blue;
+		 
 	}
 </style>
