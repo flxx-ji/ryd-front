@@ -3,6 +3,8 @@
 	import { onMount } from 'svelte';
     import { getAdminToken } from '$lib/utils/auth';
 
+	const baseURL = import.meta.env.VITE_API_URL;
+
 
 	let success = '';
 	let error = '';
@@ -39,11 +41,18 @@
 
 		try {
 			const token = getAdminToken();
- 			const res = await fetch('http://localhost:5001/api/admin/motos', {
-				method: 'POST',
-				headers: { Authorization: `Bearer ${token}` },
-				body: formData
-			});
+ 			// const res = await fetch('http://localhost:5001/api/admin/motos', {
+			// 	method: 'POST',
+			// 	headers: { Authorization: `Bearer ${token}` },
+			// 	body: formData
+			// });
+
+			const res = await fetch(`${baseURL}/api/admin/motos`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData
+});
+
 			if (!res.ok) throw new Error('Échec ajout moto');
 			success = '✅ Moto ajoutée avec succès !';
 			setTimeout(() => goto('/admin/motos'), 1500);

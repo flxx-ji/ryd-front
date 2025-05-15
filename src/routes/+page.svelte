@@ -202,18 +202,26 @@
  <script>
 	import { onMount } from 'svelte';
 
-	let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
+
+	const baseURL = import.meta.env.VITE_API_URL;
+
+	// let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
+
+	let titreImage = `${baseURL}/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp`;
 	let title = '';
 	let description = '';
 
 	onMount(async () => {
 		try {
-			const res = await fetch('http://localhost:5001/api/pages/home');
+			// const res = await fetch('http://localhost:5001/api/pages/home');
+			const res = await fetch(`${baseURL}/api/pages/home`);
 			const data = await res.json();
 			title = data.title;
 			description = data.description;
 
-			document.body.style.backgroundImage = "url('http://localhost:5001/uploads/home2.webp')";
+			// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/home2.webp')";
+
+			document.body.style.backgroundImage = `url('${baseURL}/uploads/home2.webp')`;
 			document.body.style.backgroundSize = 'cover';
 			document.body.style.backgroundRepeat = 'no-repeat';
 			document.body.style.backgroundPosition = 'center';

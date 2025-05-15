@@ -1,7 +1,9 @@
 <script>
     export let data;
     let moto = data.moto;
-    const baseURL = 'http://localhost:5001';
+    // const baseURL = 'http://localhost:5001';
+
+    const baseURL = import.meta.env.VITE_API_URL;
 
      
   </script>

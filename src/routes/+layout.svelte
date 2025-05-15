@@ -110,6 +110,9 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 
+
+	const baseURL = import.meta.env.VITE_API_URL;
+
 	let unsubscribe;
 	let pageTitle = '';
 	let showLayout = true;
@@ -124,26 +127,49 @@
 			let backgroundUrl = '';
 
 			if (showLayout) {
-				switch (path) {
-					case '/':
-						backgroundUrl = "url('http://localhost:5001/uploads/home2.webp')";
-						break;
-					case '/services':
-						backgroundUrl = "url('http://localhost:5001/uploads/services2.webp')";
-						break;
-					case '/catalogue':
-						backgroundUrl = "url('http://localhost:5001/uploads/catalogue2.webp')";
-						break;
-					case '/custom':
-						backgroundUrl = "url('http://localhost:5001/uploads/garageCustom.webp')";
-						break;
-					case '/apropos':
-						backgroundUrl = "url('http://localhost:5001/uploads/apropos2.webp')";
-						break;
-					default:
-						backgroundUrl = 'none';
-						pageTitle = '';
-				}
+				// switch (path) {
+				// 	case '/':
+				// 		backgroundUrl = "url('http://localhost:5001/uploads/home2.webp')";
+				// 		break;
+				// 	case '/services':
+				// 		backgroundUrl = "url('http://localhost:5001/uploads/services2.webp')";
+				// 		break;
+				// 	case '/catalogue':
+				// 		backgroundUrl = "url('http://localhost:5001/uploads/catalogue2.webp')";
+				// 		break;
+				// 	case '/custom':
+				// 		backgroundUrl = "url('http://localhost:5001/uploads/garageCustom.webp')";
+				// 		break;
+				// 	case '/apropos':
+				// 		backgroundUrl = "url('http://localhost:5001/uploads/apropos2.webp')";
+				// 		break;
+				// 	default:
+				// 		backgroundUrl = 'none';
+				// 		pageTitle = '';
+				// }
+                
+                switch (path) {
+	case '/':
+		backgroundUrl = `url('${baseURL}/uploads/home2.webp')`;
+		break;
+	case '/services':
+		backgroundUrl = `url('${baseURL}/uploads/services2.webp')`;
+		break;
+	case '/catalogue':
+		backgroundUrl = `url('${baseURL}/uploads/catalogue2.webp')`;
+		break;
+	case '/custom':
+		backgroundUrl = `url('${baseURL}/uploads/garageCustom.webp')`;
+		break;
+	case '/apropos':
+		backgroundUrl = `url('${baseURL}/uploads/apropos2.webp')`;
+		break;
+	default:
+		backgroundUrl = 'none';
+		pageTitle = '';
+}
+
+
 
 				document.body.style.backgroundImage = backgroundUrl;
 				document.body.style.backgroundSize = 'cover';

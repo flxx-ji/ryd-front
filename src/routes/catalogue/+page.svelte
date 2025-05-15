@@ -1,12 +1,20 @@
 <script>
 	import MotoCard from '$lib/components/MotoCard.svelte';
 	import { onMount } from 'svelte';
+    const baseURL = import.meta.env.VITE_API_URL;
 
-	let titreImage = "http://localhost:5001/uploads/CatalogueF.webp";
+
+	// let titreImage = "http://localhost:5001/uploads/CatalogueF.webp";
+
+
+	let titreImage = `${baseURL}/uploads/CatalogueF.webp`;
 	let motos = [];
 
 	onMount(() => {
-		document.body.style.backgroundImage = "url('http://localhost:5001/uploads/catalogue2.webp')";
+		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/catalogue2.webp')";
+
+		document.body.style.backgroundImage = `url('${baseURL}/uploads/catalogue2.webp')`;
+
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';
@@ -16,7 +24,8 @@
 	});
 
 	const fetchMotos = async () => {
-		const res = await fetch('http://localhost:5001/api/motos');
+		// const res = await fetch('http://localhost:5001/api/motos');
+		const res = await fetch(`${baseURL}/api/motos`);
 		motos = await res.json();
 	};
 </script>

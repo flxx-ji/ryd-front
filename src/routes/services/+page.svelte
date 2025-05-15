@@ -1,10 +1,17 @@
  
 <script>
 	import { onMount } from 'svelte';
-	let titreImage = "http://localhost:5001/uploads/ServicesF.webp";
+
+	const baseURL = import.meta.env.VITE_API_URL;
+
+	// let titreImage = "http://localhost:5001/uploads/ServicesF.webp";
+
+	let titreImage = `${baseURL}/uploads/ServicesF.webp`;
 
 	onMount(() => {
-		document.body.style.backgroundImage = "url('http://localhost:5001/uploads/services2.webp')";
+		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/services2.webp')";
+
+		document.body.style.backgroundImage = `url('${baseURL}/uploads/services2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';
@@ -19,7 +26,8 @@
 
 <!-- Bloc service 1 : Vidange -->
 <div class="service-blur">
-	<img src="http://localhost:5001/uploads/motorbike-407186_1280.webp" alt="Vidange moto" class="service-img" />
+	<!-- <img src="http://localhost:5001/uploads/motorbike-407186_1280.webp" alt="Vidange moto" class="service-img" /> -->
+	<img src={`${baseURL}/uploads/motorbike-407186_1280.webp`} alt="Vidange moto" class="service-img" />
 	<div class="service-text">
 		<h2>Vidange moto</h2>
 		<p>
@@ -32,7 +40,9 @@
 
 <!-- Bloc service 2 : Pneus -->
 <div class="service-blur">
-	<img src="http://localhost:5001/uploads/duc-van-2EeVtfFi4G8-unsplash.webp" alt="Changement pneus" class="service-img" />
+	<!-- <img src="http://localhost:5001/uploads/duc-van-2EeVtfFi4G8-unsplash.webp" alt="Changement pneus" class="service-img" /> -->
+
+	<img src={`${baseURL}/uploads/duc-van-2EeVtfFi4G8-unsplash.webp`} alt="Changement pneus" class="service-img" />
 	<div class="service-text">
 		<h2>Changement de pneus</h2>
 		<p>

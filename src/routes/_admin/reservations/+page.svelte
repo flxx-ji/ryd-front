@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	const baseURL = import.meta.env.VITE_API_URL;
+
 
 	// 🔐 Utilisation centralisée du token
 	import { getAdminToken } from '$lib/utils/auth';
@@ -20,7 +22,9 @@
 		try {
 			const token = getAdminToken(); // 🔐 Utilise le token de manière propre
 
-			const res = await fetch('http://localhost:5001/api/admin/reservations', {
+			// const res = await fetch('http://localhost:5001/api/admin/reservations', {
+
+			const res = await fetch(`${baseURL}/api/admin/reservations`, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
@@ -40,7 +44,10 @@
 	async function updateStatut(id: string, nouveauStatut: string) {
 		try {
 			const token = getAdminToken();
-			await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
+			// await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
+
+			await fetch(`${baseURL}/api/admin/reservations/${id}`, {
+
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -62,7 +69,10 @@
 
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
+			// const res = await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
+
+			const res = await fetch(`${baseURL}/api/admin/reservations/${id}`, {
+
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`

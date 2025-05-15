@@ -1,9 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
-	let titreImage = "http://localhost:5001/uploads/AproposF.webp";
+
+	const baseURL = import.meta.env.VITE_API_URL;
+
+	// let titreImage = "http://localhost:5001/uploads/AproposF.webp";
+
+	let titreImage = `${baseURL}/uploads/AproposF.webp`;
+
 
 	onMount(() => {
-		document.body.style.backgroundImage = "url('http://localhost:5001/uploads/apropos2.webp')";
+		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/apropos2.webp')";
+
+		document.body.style.backgroundImage = `url('${baseURL}/uploads/apropos2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';

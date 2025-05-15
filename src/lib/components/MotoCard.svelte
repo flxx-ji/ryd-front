@@ -2,7 +2,9 @@
   export let moto;
   let isHovered = false;
 
-  const baseURL = 'http://localhost:5001';
+  // const baseURL = 'http://localhost:5001';
+  const baseURL = import.meta.env.VITE_API_URL;
+
 
   // 🔧 Corrige le chemin si besoin
   const imageURL = moto.image?.startsWith('/uploads')

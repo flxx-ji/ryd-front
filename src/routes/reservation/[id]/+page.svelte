@@ -18,10 +18,16 @@
     // On récupère l'ID depuis l'URL
     let id;
     $: id = $page.params.id;
+
+    const baseURL = import.meta.env.VITE_API_URL;
+
   
     onMount(async () => {
       try {
-        const res = await fetch(`http://localhost:5001/api/motos/${id}`);
+        // const res = await fetch(`http://localhost:5001/api/motos/${id}`);
+
+        const res = await fetch(`${baseURL}/api/motos/${id}`);
+
         if (!res.ok) throw new Error('Erreur lors du chargement de la moto');
         moto = await res.json();
       } catch (err) {
@@ -60,7 +66,10 @@
   console.log("✅ Données à envoyer :", body); // 🟢 ici c’est bon
 
   try {
-    const res = await fetch('http://localhost:5001/api/stripe/create-checkout-session', {
+    // const res = await fetch('http://localhost:5001/api/stripe/create-checkout-session', { 
+    
+      const res = await fetch(`${baseURL}/api/stripe/create-checkout-session`, {
+
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

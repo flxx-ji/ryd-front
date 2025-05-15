@@ -1,7 +1,11 @@
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
-    const res = await fetch('http://localhost:5001/api/motos');
+
+  const baseURL = import.meta.env.VITE_API_URL;
+
+    // const res = await fetch('http://localhost:5001/api/motos');
   
+    const res = await fetch(`${baseURL}/api/motos`);
     if (!res.ok) {
       throw new Error("Erreur de chargement des motos");
     }

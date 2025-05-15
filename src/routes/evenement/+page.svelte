@@ -3,15 +3,27 @@
 	import '@splidejs/splide/dist/css/splide.min.css';
 	import Splide from '@splidejs/splide';
 
-	let titreImage = "http://localhost:5001/uploads/EvénementsF.webp";
+	const baseURL = import.meta.env.VITE_API_URL;
+
+	// let titreImage = "http://localhost:5001/uploads/EvénementsF.webp";
+	// let images = [
+	// 	"http://localhost:5001/uploads/event1.webp",
+	// 	"http://localhost:5001/uploads/event2.webp",
+	// 	"http://localhost:5001/uploads/event2-1.webp"
+	// ];
+
+	let titreImage = `${baseURL}/uploads/EvénementsF.webp`;
 	let images = [
-		"http://localhost:5001/uploads/event1.webp",
-		"http://localhost:5001/uploads/event2.webp",
-		"http://localhost:5001/uploads/event2-1.webp"
+		`${baseURL}/uploads/event1.webp`,
+		`${baseURL}/uploads/event2.webp`,
+		`${baseURL}/uploads/event2-1.webp`
 	];
 
+
 	onMount(() => {
-		document.body.style.backgroundImage = "url('http://localhost:5001/uploads/eventBackground.webp')";
+		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/eventBackground.webp')";
+		
+		document.body.style.backgroundImage = `url('${baseURL}/uploads/eventBackground.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';
