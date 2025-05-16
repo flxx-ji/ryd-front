@@ -22,12 +22,13 @@
       <p><strong>Disponible :</strong> {moto.disponible ? "Oui" : "Non"}</p>
   
       <p><strong>💰 Tarifs :</strong></p>
-      <ul>
-        <li>• 1 jour : {moto.tarifs.unJour} €</li>
-        <li>• 3 jours : {moto.tarifs.troisJours} €</li>
-        <li>• 4-5 jours : {moto.tarifs.quatreCinqJours} €</li>
-        <li>• 1 semaine : {moto.tarifs.uneSemaine} €</li>
-      </ul>
+     <ul>
+  <li>• 1 jour : {moto.tarifs.unJour} €</li>
+  <li>• 2–3 jours : {moto.tarifs.deuxTroisJours}</li>
+  <li>• 4–5 jours : {moto.tarifs.quatreCinqJours}</li>
+  <li>• 1 semaine : {moto.tarifs.uneSemaine} €</li>
+</ul>
+
   
       <p><strong>⚙️ Caractéristiques :</strong></p>
       <ul>
