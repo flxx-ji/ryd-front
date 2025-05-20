@@ -15,7 +15,8 @@
 	onMount(async () => {
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/clients/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
@@ -34,7 +35,8 @@
 	async function updateClient() {
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/clients/${id}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -57,7 +59,8 @@
 
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/clients/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`

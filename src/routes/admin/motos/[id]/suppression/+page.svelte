@@ -9,11 +9,13 @@
 	let error = '';
 
 	const id = $page.params.id;
+	const baseURL = 'https://ryd-backend2-iryz.onrender.com'; // 🌍 PROD
+	// const baseURL = 'http://localhost:5001'; // 🖥️ LOCAL
 
 	onMount(async () => {
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
+			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
@@ -33,7 +35,7 @@
 
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
+			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`

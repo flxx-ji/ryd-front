@@ -19,7 +19,8 @@
 		try {
 			loading = true;
 			const token = getAdminToken(); // 💡 récupération du token proprement
-			const res = await fetch('http://localhost:5001/api/admin/clients', {
+			// const res = await fetch('http://localhost:5001/api/admin/clients', {
+			const res = await fetch('https://ryd-backend2-iryz.onrender.com/api/admin/clients', {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
@@ -38,7 +39,8 @@
 		if (!confirm('❗ Supprimer ce client ?')) return;
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
+			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/clients/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`

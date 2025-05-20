@@ -7,10 +7,13 @@
 	let loading = true;
 	let error = '';
 
+	 const baseURL = 'https://ryd-backend2-iryz.onrender.com'; // 🌍 PROD
+	// const baseURL = 'http://localhost:5001'; // 🖥️ LOCAL
+
 	onMount(async () => {
 		try {
 			const token = getAdminToken();
-			const res = await fetch('http://localhost:5001/api/admin/motos', {
+			const res = await fetch(`${baseURL}/api/admin/motos`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
 			if (!res.ok) throw new Error("Erreur récupération motos");
@@ -31,7 +34,7 @@
 
 	try {
 		const token = getAdminToken();
-		const res = await fetch(`http://localhost:5001/api/admin/motos/${id}`, {
+		const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 			method: 'DELETE',
 			headers: { Authorization: `Bearer ${token}` }
 		});
