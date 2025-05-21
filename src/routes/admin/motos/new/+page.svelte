@@ -76,7 +76,7 @@ onMount(async () => {
 		const prix = (j: number, remise: number) => ((unJour * j) * (1 - remise)).toFixed(2);
 		deuxTroisJours = `${prix(2, 0.05)} € (-5%) / ${prix(3, 0.05)} € (-5%)`;
 		quatreCinqJours = `${prix(4, 0.10)} € (-10%) / ${prix(5, 0.15)} € (-15%)`;
-		uneSemaine = parseFloat(prix(7, 0.20));
+		uneSemaine = parseFloat(prix(6, 0.20));
 	}
 
 	// 📤 Envoi du formulaire au backend
