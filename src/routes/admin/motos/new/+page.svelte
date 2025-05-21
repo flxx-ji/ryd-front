@@ -34,6 +34,12 @@
 	let autonomie = '';
 	let reservoir = '';
 
+	//Equipements 
+     // Ajoute dans ton script
+    let equipementsTexte = '';
+
+
+
 	// 🧬 Duplication si ?copieDe=ID dans l'URL
 onMount(async () => {
 	const idToCopy = $page.url.searchParams.get('copieDe');
@@ -73,11 +79,12 @@ onMount(async () => {
 
 	// 🔁 Calcul auto des tarifs dès que le prix 1 jour est saisi
 	$: if (unJour > 0) {
-		const prix = (j: number, remise: number) => ((unJour * j) * (1 - remise)).toFixed(2);
-		deuxTroisJours = `${prix(2, 0.05)} € (-5%) / ${prix(3, 0.05)} € (-5%)`;
-		quatreCinqJours = `${prix(4, 0.10)} € (-10%) / ${prix(5, 0.15)} € (-15%)`;
-		uneSemaine = parseFloat(prix(6, 0.20));
-	}
+	const prix = (j: number, remise: number) => ((unJour * j) * (1 - remise)).toFixed(2);
+	deuxTroisJours = `${prix(2, 0.05)} € / ${prix(3, 0.05)} €`;
+	quatreCinqJours = `${prix(4, 0.10)} € / ${prix(5, 0.15)} €`;
+	uneSemaine = parseFloat(prix(6, 0.20)); // ✅ tarif spécial = 6 jours avec -20%
+}
+
 
 	// 📤 Envoi du formulaire au backend
 	const ajouterMoto = async () => {
@@ -104,6 +111,11 @@ onMount(async () => {
 			autonomie,
 			reservoir
 		}));
+
+		formData.append('equipements', JSON.stringify(
+	        equipementsTexte.split(',').map(e => e.trim()).filter(Boolean)
+          ));
+
 
 		if (image) formData.append('image', image);
 
@@ -205,6 +217,13 @@ onMount(async () => {
 			<label>Réservoir</label>
 			<input class="form-control" bind:value={reservoir} />
 		</div>
+        
+
+		<!-- 🧳 Équipements -->
+        <div class="col-12">
+	        <label>Équipements (séparés par des virgules)</label>
+	        <input class="form-control" bind:value={equipementsTexte} placeholder="Casque, Gants, GPS..." />
+        </div>
 
 		<!-- 📸 Image avec preview -->
 		<div class="col-12">
