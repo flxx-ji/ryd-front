@@ -41,11 +41,16 @@
       </ul>
   
       <p><strong>📦 Équipements inclus :</strong></p>
-      <ul>
-        {#each moto.equipements as item}
-          <li>• {item}</li>
-        {/each}
-      </ul>
+          {#if moto.equipements && moto.equipements.length > 0}
+            <ul>
+              {#each moto.equipements as item}
+                <li>• {item}</li>
+              {/each}
+            </ul>
+          {:else}
+            <p>– Non spécifiés –</p>
+          {/if}
+
     </div>
   
     <div class="buttons">
