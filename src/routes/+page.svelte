@@ -207,7 +207,7 @@
 
 	// let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
 
-	let titreImage = `${baseURL}/uploads/Ride your Dreams Custom MotorcycleP.png`;
+	let titreImage = `${baseURL}/uploads/Ride your Dreams Custom MotorcycleT.png`;
 	let title = '';
 	let description = '';
 
