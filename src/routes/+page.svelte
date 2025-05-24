@@ -329,10 +329,14 @@
 		max-width: 90vw;
 	}
 	.titre {
-		max-width: 1110px;
-		width: 95%;
-		height: auto;
-	}
+	width: 100%;
+	max-width: 800px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	object-fit: contain;
+}
+
 
 	.content-blur-texte {
 		max-width: 950px;
