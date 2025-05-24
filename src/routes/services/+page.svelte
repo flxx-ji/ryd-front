@@ -53,6 +53,15 @@
 </div>
 
 <style>
+
+	.titre {
+  max-width: 900px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 	.service-blur {
 		max-width: 1100px;
 		margin: 2rem auto;
