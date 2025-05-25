@@ -40,7 +40,7 @@ body {
   line-height: 1.2;
   margin: 2rem auto 1rem auto;
   -webkit-text-stroke: 1px black;
-
+}
 /* 🌟 Titres universels */
 .titre-section {
   display: flex;
