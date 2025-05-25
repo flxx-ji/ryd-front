@@ -1,5 +1,6 @@
  
 <script>
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import { onMount } from 'svelte';
 
 	const baseURL = import.meta.env.VITE_API_URL;
@@ -19,11 +20,7 @@
 	});
 </script>
 
-<div class="titre-wrapper">
-	<h1 class="titre-stroke">Services</h1>
-	<h1 class="titre-fill">Services</h1>
-</div>
-
+<TitreChicanos text="Services" />
 <!-- Bloc service 1 : Vidange -->
 <div class="service-blur">
 	<!-- <img src="http://localhost:5001/uploads/motorbike-407186_1280.webp" alt="Vidange moto" class="service-img" /> -->
