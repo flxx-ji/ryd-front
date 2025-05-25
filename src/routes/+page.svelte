@@ -236,7 +236,7 @@
 
 <!-- TITRE IMAGE -->
 <div class="titre-section">
-	<img src={titreImage} alt="Ride Your Dream" class="titre" />
+	<img src={titreImage} alt="Ride Your Dream" class="titre-home" />
 </div>
 
 <!-- CONTENU ENCADRÉ + BLUR -->
@@ -322,8 +322,8 @@
 
 <style>
 	 
-.titre {
-	width: clamp(350px, 75vw, 590px);
+.titre-home {
+	width: clamp(350px, 75vw, 660px);
 }
 
 

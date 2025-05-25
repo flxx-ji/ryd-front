@@ -41,7 +41,7 @@
 </script>
 
 <div class="titre-section">
-	<img src={titreImage} alt="Événements" class="titre" />
+	<img src={titreImage} alt="Événements" class="titre-events" />
 </div>
 
 <div class="text-blur">
@@ -63,7 +63,10 @@
 </div>
 
 <style>
-	 
+	 .titre-events {
+	width: clamp(350px, 75vw, 390px);
+}
+
 
 	.text-blur {
 		max-width: 900px;
