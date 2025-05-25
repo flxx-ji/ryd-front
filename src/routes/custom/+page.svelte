@@ -47,19 +47,13 @@
 </div>
 
 <style>
-	.titre-section {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin: 2rem auto;
-		width: fit-content;
-		max-width: 90vw;
-	}
 	.titre {
-		max-width: 1000px;
-		width: 90%;
-		height: auto;
-	}
+	width: clamp(320px, 70vw, 590px);
+	height: auto;
+	object-fit: contain;
+	display: block;
+}
+
 
 	.text-blur {
 		max-width: 900px;

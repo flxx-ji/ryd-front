@@ -27,16 +27,11 @@
 </div>
 
 <style>
-	.titre-section {
-		display: flex;
-		justify-content: center;
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-	}
-
-    .titre {
-	width: 300px;
+	.titre {
+	width: clamp(320px, 70vw, 590px);
 	height: auto;
+	object-fit: contain;
+	display: block;
 }
 
 

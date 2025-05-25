@@ -321,20 +321,13 @@
 </div>
 
 <style>
-	.titre-section {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin: 3rem auto 1rem auto;
-		max-width: 90vw;
-	}
 	.titre {
-  max-width: 900px;
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+	width: clamp(320px, 70vw, 590px);
+	height: auto;
+	object-fit: contain;
+	display: block;
 }
+
 
 
 

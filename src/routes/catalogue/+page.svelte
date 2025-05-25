@@ -44,30 +44,15 @@
 		padding: 0;
 	}
 
-	.page-section {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 0;
-		margin-top: 0;
-	}
-
-	.titre-section {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 160px;
-		margin-bottom: 1rem;
-		width: 100%;
-	}
-
 	.titre {
-		height: auto;
-		max-height: 120px;
-		width: auto;
-		object-fit: contain;
-	}
+	width: clamp(320px, 70vw, 590px);
+	height: auto;
+	object-fit: contain;
+	display: block;
+}
 
+
+	 
 	.catalogue {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
