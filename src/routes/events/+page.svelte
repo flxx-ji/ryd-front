@@ -91,13 +91,18 @@
 	}
 
     .splide__slide img {
-	max-height: 650px; /* agrandi un peu plus */
-	width: auto;
-	margin: 0 auto;
-	border-radius: 0.75rem;
-	box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-	object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 80vh; /* plus fluide que 650px fixe */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
+
 
 
 .splide__track {
