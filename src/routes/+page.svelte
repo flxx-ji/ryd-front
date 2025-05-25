@@ -235,7 +235,7 @@
 </script>
 
 <!-- TITRE IMAGE -->
-<div class="titre-home">
+<div class="titre-section">
 	<img src={titreImage} alt="Ride Your Dream" class="titre" />
 </div>
 
@@ -322,7 +322,7 @@
 
 <style>
 	 
-.titre-home {
+.titre {
 	width: clamp(350px, 75vw, 590px);
 }
 
