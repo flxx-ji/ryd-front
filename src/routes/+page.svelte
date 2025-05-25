@@ -235,9 +235,12 @@
 </script>
 
 <!-- TITRE IMAGE -->
-<div class="titre-section">
-	<h1 class="titre-chicanos">Ride Your Dreams Custom Motorcycle</h1>
+<!-- TITRE CHICANOS SUPERPOSÉ -->
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">Ride Your Dreams Custom Motorcycle</h1>
+	<h1 class="titre-fill">Ride Your Dreams Custom Motorcycle</h1>
 </div>
+
 
 <!-- CONTENU ENCADRÉ + BLUR -->
 <div class="content-blur-texte">
