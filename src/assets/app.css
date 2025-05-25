@@ -1,67 +1,3 @@
-<script>
-	import { onMount, onDestroy } from 'svelte';
-	import { page } from '$app/stores';
-
-	let unsubscribe;
-
-	onMount(() => {
-		unsubscribe = page.subscribe(($page) => {
-			const path = $page.url.pathname;
-
-			let backgroundUrl = '';
-
-			switch (path) {
-				case '/':
-					backgroundUrl = "url('/backgrounds/home.jpg')";
-					break;
-				case '/services':
-					backgroundUrl = "url('/backgrounds/services.jpg')";
-					break;
-				case '/catalogue':
-					backgroundUrl = "url('/backgrounds/catalogue.jpg')";
-					break;
-				case '/custom':
-					backgroundUrl = "url('/backgrounds/custom.jpg')";
-					break;
-				case '/apropos':
-					backgroundUrl = "url('/backgrounds/apropos.jpg')";
-					break;
-				default:
-					backgroundUrl = 'none';
-			}
-
-			document.body.style.backgroundImage = backgroundUrl;
-			document.body.style.backgroundSize = 'cover';
-			document.body.style.backgroundRepeat = 'no-repeat';
-			document.body.style.backgroundPosition = 'center';
-			document.body.style.backgroundAttachment = 'fixed';
-
-			document.body.style.margin = '0';
-			document.body.style.padding = '0';
-			document.body.style.display = 'flex';
-			document.body.style.flexDirection = 'column';
-			document.body.style.minHeight = '100vh';
-		});
-	});
-
-	onDestroy(() => {
-		if (unsubscribe) unsubscribe();
-	});
-</script>
-
-<header>
-	<!-- ta nav ici -->
-</header>
-
-<main>
-	<slot />
-</main>
-
-<footer>
-	<!-- ton footer ici -->
-</footer>
-
-<style>
 :global(main) {
   margin: 0 !important;
   padding: 0 !important;
@@ -70,78 +6,34 @@
   align-items: center;
 }
 
+header, main, footer {
+  position: relative;
+  z-index: 1;
+}
 
-	header, main, footer {
-		position: relative;
-		z-index: 1;
-	}
+main {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
 
-	main {
-		flex: 1;
-    margin: 0 ;
-		padding: 0;
-		color: white; /* si besoin pour lire sur l'image */
-	}
+body {
+  overflow-x: hidden;
+}
 
-	body {
-		overflow-x: hidden;
-	}
+/* 🌟 Titres universels */
+.titre-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto 1rem auto;
+  max-width: 90vw;
+}
 
-  .titre-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 3rem auto 1rem auto;
-    width: fit-content;
-    max-width: 90vw;
-  }
-  
-  .titre-responsive {
-    width: 100%;
-    height: auto;
-    max-width: 1110px; /* Desktop par défaut */
-  }
-  
-  /* Mobile */
-  @media (max-width: 640px) {
-    .titre-responsive {
-      max-width: 90vw;
-    }
-  }
-  
-  /* Tablette portrait */
-  @media (max-width: 768px) {
-    .titre-responsive {
-      max-width: 85vw;
-    }
-  }
-  
-  /* Tablette panoramique */
-  @media (max-width: 1024px) {
-    .titre-responsive {
-      max-width: 80vw;
-    }
-  }
-  
-  /* Laptop */
-  @media (max-width: 1280px) {
-    .titre-responsive {
-      max-width: 1000px;
-    }
-  }
-  
-  /* Desktop */
-  @media (min-width: 1281px) and (max-width: 1440px) {
-    .titre-responsive {
-      max-width: 1110px;
-    }
-  }
-  
-  /* Ultra large */
-  @media (min-width: 1536px) {
-    .titre-responsive {
-      max-width: 1200px;
-    }
-  }
-  
-</style>
+.titre {
+  width: clamp(320px, 70vw, 590px); /* responsive */
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
