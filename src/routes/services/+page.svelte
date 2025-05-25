@@ -1,11 +1,11 @@
  
 <script>
-	// import TitreChicanos from '$lib/components/TitreChicanos.svelte';
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import { onMount } from 'svelte';
 
 	const baseURL = import.meta.env.VITE_API_URL;
 
-	// let titreImage = "http://localhost:5001/uploads/ServicesF.webp";
+	 
 
 	let titreImage = `${baseURL}/uploads/Services2X.webp`;
 
@@ -20,15 +20,17 @@
 	});
 </script>
 
-<div class="titre-wrapper">
+<!-- <div class="titre-wrapper">
 	<h1 class="titre-stroke">Services</h1>
 	<h1 class="titre-fill">Services</h1>
-</div>
+</div> -->
 
-<div class="content-blur-texte">
+<TitreChicanos text="Services" />
+
+<!-- <div class="content-blur-texte">
 	<h2>Nos Services</h2>
 	<p class="slogan">Entretien, custom & expérience deux-roues</p>
-</div>
+</div> -->
 
 
 <!-- Bloc service 1 : Vidange -->
