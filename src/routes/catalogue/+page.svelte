@@ -24,12 +24,11 @@
 </script>
 
 <div class="page-section">
-	<div class="titre-section">
-		<!-- 🖼️ Pour retour dev local : -->
-		<!-- <img src="http://localhost:5001/uploads/CatalogueF.webp" alt="Catalogue" class="titre" /> -->
+	<div class="titre-wrapper">
+	<h1 class="titre-stroke">Catalogue</h1>
+	<h1 class="titre-fill">Catalogue</h1>
+</div>
 
-		<img src={`${baseURL}/uploads/Catalogue2X.webp`} alt="Catalogue" class="titre" />
-	</div>
 
 	<div class="catalogue">
 		{#each motos as moto}

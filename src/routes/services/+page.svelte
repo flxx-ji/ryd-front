@@ -19,10 +19,10 @@
 	});
 </script>
 
-<div class="titre-section">
-	<img src={titreImage} alt="Services" class="titre" />
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">Services</h1>
+	<h1 class="titre-fill">Services</h1>
 </div>
-
 
 <!-- Bloc service 1 : Vidange -->
 <div class="service-blur">

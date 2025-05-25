@@ -325,10 +325,7 @@
 
 <style>
 	 
-.titre-home {
-	font-family: 'Chicanos', sans-serif;
-}
-
+ 
 
 
 

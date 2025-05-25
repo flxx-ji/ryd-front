@@ -40,9 +40,11 @@
 	});
 </script>
 
-<div class="titre-section">
-	<img src={titreImage} alt="Événements" class="titre-events" />
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">Événements</h1>
+	<h1 class="titre-fill">Événements</h1>
 </div>
+
 
 <div class="text-blur">
 	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">Les événements Ride Your Dreams</h2>
@@ -63,10 +65,7 @@
 </div>
 
 <style>
-	 .titre-events {
-	width: clamp(350px, 75vw, 390px);
-}
-
+ 
 
 	.text-blur {
 		max-width: 900px;

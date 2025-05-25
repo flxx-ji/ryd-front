@@ -19,17 +19,17 @@
 	});
 </script>
 
-<div class="titre-section">
-	<img src={titreImage} alt="À propos" class="titre-apropos" />
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">À propos</h1>
+	<h1 class="titre-fill">À propos</h1>
 </div>
+
 <div class="text-blur">
 	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 </div>
 
 <style>
-		 .titre-apropos {
-	width: clamp(350px, 75vw, 390px);
-}
+	 
 
   
 	.text-blur {

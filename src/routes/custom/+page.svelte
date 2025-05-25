@@ -18,9 +18,11 @@
 	});
 </script>
 
-<div class="titre-section">
-	<img src={titreImage} alt="Custom" class="titre" />
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">Custom</h1>
+	<h1 class="titre-fill">Custom</h1>
 </div>
+
 
 <div class="text-blur">
 	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">
