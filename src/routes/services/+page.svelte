@@ -1,6 +1,6 @@
  
 <script>
-	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
+	// import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import { onMount } from 'svelte';
 
 	const baseURL = import.meta.env.VITE_API_URL;
@@ -20,7 +20,10 @@
 	});
 </script>
 
-<TitreChicanos text="Services" />
+<div class="titre-wrapper">
+	<h1 class="titre-stroke">Services</h1>
+	<h1 class="titre-fill">Services</h1>
+</div>
 
 
 <!-- Bloc service 1 : Vidange -->
