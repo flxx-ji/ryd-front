@@ -322,6 +322,9 @@
 
 <style>
 	 
+.titre-home {
+	width: clamp(350px, 75vw, 590px);
+}
 
 
 
