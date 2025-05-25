@@ -107,6 +107,8 @@
   <script>
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import '../assets/app.css';
+
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 
@@ -227,6 +229,23 @@
 		color: #D4AF37;
 		text-align: center;
 	}
+.titre-section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 3rem auto 1rem auto;
+	width: 100%;
+	max-width: 100vw;
+	padding: 0 1rem;
+	box-sizing: border-box;
+}
+
+.titre {
+	width: clamp(320px, 70vw, 590px); /* adaptatif mobile-desktop */
+	height: auto;
+	object-fit: contain;
+	display: block;
+}
 
 	.dynamic-title {
 		font-size: 2rem;
