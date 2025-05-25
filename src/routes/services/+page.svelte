@@ -24,11 +24,7 @@
 	<h1 class="titre-stroke">Services</h1>
 	<h1 class="titre-fill">Services</h1>
 </div>
-<div class="content-blur-texte">
-	{#if title}
-		<h1>{title}</h1>
-	{/if}
-</div>
+
 <div class="content-blur-texte">
 	<h2>Nos Services</h2>
 	<p class="slogan">Entretien, custom & expérience deux-roues</p>
