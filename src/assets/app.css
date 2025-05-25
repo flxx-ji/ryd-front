@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Chicanos';
+  src: url('/fonts/ChicanosPersonalUseRegular-qZDw5.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
 :global(main) {
   margin: 0 !important;
   padding: 0 !important;
