@@ -25,6 +25,11 @@
 	<h1 class="titre-fill">Services</h1>
 </div>
 
+<div class="content-blur-texte">
+	<h2>Nos Services</h2>
+	<p class="slogan">Entretien, custom & expérience deux-roues</p>
+</div>
+
 
 <!-- Bloc service 1 : Vidange -->
 <div class="service-blur">
@@ -55,7 +60,25 @@
 </div>
 
 <style>
-    	 
+    	 .content-blur-texte {
+	max-width: 950px;
+	margin: 0 auto 5rem auto;
+	padding: 2rem;
+	backdrop-filter: blur(10px);
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 16px;
+	color: #D4AF37;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+	text-align: center;
+}
+
+.slogan {
+	font-size: 1.2rem;
+	margin-bottom: 2rem;
+	color: #FFD700;
+	text-shadow: 1px 1px 2px #000;
+}
+
  
 	.service-blur {
 		max-width: 1100px;
