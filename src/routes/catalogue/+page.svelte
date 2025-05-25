@@ -28,7 +28,7 @@
 		<!-- 🖼️ Pour retour dev local : -->
 		<!-- <img src="http://localhost:5001/uploads/CatalogueF.webp" alt="Catalogue" class="titre" /> -->
 
-		<img src={`${baseURL}/uploads/CatalogueF.webp`} alt="Catalogue" class="titre" />
+		<img src={`${baseURL}/uploads/Catalogue2X.webp`} alt="Catalogue" class="titre" />
 	</div>
 
 	<div class="catalogue">

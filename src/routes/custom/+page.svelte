@@ -5,7 +5,7 @@
 
 
 	// let titreImage = "http://localhost:5001/uploads/CustomF.webp";
-	let titreImage = `${baseURL}/uploads/CustomF.webp`;
+	let titreImage = `${baseURL}/uploads/Custom2X.webp`;
 
 	onMount(() => {
 		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/garageCustom.webp')";
