@@ -236,7 +236,7 @@
 
 <!-- TITRE IMAGE -->
 <div class="titre-section">
-	<img src={titreImage} alt="Ride Your Dreams Custom Motorcycle" class="titre-home" />
+	<h1 class="titre-chicanos">Ride Your Dreams Custom Motorcycle</h1>
 </div>
 
 <!-- CONTENU ENCADRÉ + BLUR -->
