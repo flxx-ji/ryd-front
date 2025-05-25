@@ -235,7 +235,7 @@
 </script>
 
 <!-- TITRE IMAGE -->
-<div class="titre-section">
+<div class="titre-home">
 	<img src={titreImage} alt="Ride Your Dream" class="titre" />
 </div>
 
