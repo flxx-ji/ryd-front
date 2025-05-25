@@ -53,13 +53,19 @@
 </div>
 
 <style>
-    .titre {
+    	.titre-section {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 3rem auto 1rem auto;
+		max-width: 90vw;
+	}
+.titre {
 	width: clamp(320px, 70vw, 590px);
 	height: auto;
 	object-fit: contain;
 	display: block;
 }
-
  
 	.service-blur {
 		max-width: 1100px;
