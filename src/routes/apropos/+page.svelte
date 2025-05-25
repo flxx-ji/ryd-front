@@ -5,7 +5,7 @@
 
 	// let titreImage = "http://localhost:5001/uploads/AproposF.webp";
 
-	let titreImage = `${baseURL}/uploads/Apropos2X.webp`;
+	let titreImage = `${baseURL}/uploads/A propos2X.webp`;
 
 
 	onMount(() => {

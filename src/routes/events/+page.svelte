@@ -12,7 +12,7 @@
 	// 	"http://localhost:5001/uploads/event2-1.webp"
 	// ];
 
-	let titreImage = `${baseURL}/uploads/evenementsF.webp`;
+	let titreImage = `${baseURL}/uploads/Evenements2X.webp`;
 	let images = [
 		`${baseURL}/uploads/event1.webp`,
 		`${baseURL}/uploads/event2.webp`,
