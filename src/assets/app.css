@@ -32,7 +32,7 @@ body {
 }
 
 .titre {
-  width: clamp(320px, 70vw, 390px); /* responsive */
+  width: clamp(320px, 70vw, 320px); /* responsive */
   height: auto;
   object-fit: contain;
   display: block;
