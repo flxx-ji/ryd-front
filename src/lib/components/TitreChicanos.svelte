@@ -1,6 +1,6 @@
 <!-- src/lib/components/TitreChicanos.svelte -->
 <script>
-  export let text = "Titre par défaut";
+  export let text = "";
 </script>
 
 <div class="titre-wrapper">

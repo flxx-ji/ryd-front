@@ -21,6 +21,8 @@
 </script>
 
 <TitreChicanos text="Services" />
+
+
 <!-- Bloc service 1 : Vidange -->
 <div class="service-blur">
 	<!-- <img src="http://localhost:5001/uploads/motorbike-407186_1280.webp" alt="Vidange moto" class="service-img" /> -->
