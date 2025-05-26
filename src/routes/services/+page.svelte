@@ -73,7 +73,7 @@
 	box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 	text-align: center;
 }
-h1, h2, h3 {
+h1, h2 {
 		text-shadow: 1px 1px 3px #000;
 		font-weight: bold;
 	}
