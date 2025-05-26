@@ -1,5 +1,5 @@
 <!-- Titre -->
-<TitreChicanos text="Événements" />
+<TitreChicanos text="events" />
 
 <!-- Intro floutée -->
 <div class="text-blur">
