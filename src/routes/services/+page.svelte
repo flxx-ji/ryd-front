@@ -1,17 +1,10 @@
- 
 <script>
-	// import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import { onMount } from 'svelte';
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 
 	const baseURL = import.meta.env.VITE_API_URL;
 
-	 
-
-	let titreImage = `${baseURL}/uploads/Services2X.webp`;
-
 	onMount(() => {
-		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/services2.webp')";
-
 		document.body.style.backgroundImage = `url('${baseURL}/uploads/services2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
@@ -20,22 +13,17 @@
 	});
 </script>
 
-<div class="titre-wrapper">
-	<h1 class="titre-stroke">Services</h1>
-	<h1 class="titre-fill">Services</h1>
-</div>
+<!-- ✅ Titre unifié -->
+<TitreChicanos text="Services" size="5rem" strokeSize="2px" />
 
-<!-- <TitreChicanos text="Services" /> -->
-
-<!-- <div class="content-blur-texte">
+<!-- ✅ Slogan + sous-titre -->
+<div class="content-blur-texte">
 	<h2>Nos Services</h2>
 	<p class="slogan">Entretien, custom & expérience deux-roues</p>
-</div> -->
+</div>
 
-
-<!-- Bloc service 1 : Vidange -->
+<!-- ✅ Service : Vidange -->
 <div class="service-blur">
-	<!-- <img src="http://localhost:5001/uploads/motorbike-407186_1280.webp" alt="Vidange moto" class="service-img" /> -->
 	<img src={`${baseURL}/uploads/motorbike-407186_1280.webp`} alt="Vidange moto" class="service-img" />
 	<div class="service-text">
 		<h2>Vidange moto</h2>
@@ -47,10 +35,8 @@
 	</div>
 </div>
 
-<!-- Bloc service 2 : Pneus -->
+<!-- ✅ Service : Pneus -->
 <div class="service-blur">
-	<!-- <img src="http://localhost:5001/uploads/duc-van-2EeVtfFi4G8-unsplash.webp" alt="Changement pneus" class="service-img" /> -->
-
 	<img src={`${baseURL}/uploads/duc-van-2EeVtfFi4G8-unsplash.webp`} alt="Changement pneus" class="service-img" />
 	<div class="service-text">
 		<h2>Changement de pneus</h2>
@@ -62,7 +48,7 @@
 </div>
 
 <style>
-    	 .content-blur-texte {
+.content-blur-texte {
 	max-width: 950px;
 	margin: 0 auto 5rem auto;
 	padding: 2rem;
@@ -73,15 +59,7 @@
 	box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 	text-align: center;
 }
-h1, h2 {
-		text-shadow: 1px 1px 3px #000;
-		font-weight: bold;
-	}
 
-	h1 {
-		font-size: 2.5rem;
-		margin-bottom: 1rem;
-	}
 .slogan {
 	font-size: 1.2rem;
 	margin-bottom: 2rem;
@@ -89,56 +67,55 @@ h1, h2 {
 	text-shadow: 1px 1px 2px #000;
 }
 
- 
+.service-blur {
+	max-width: 1100px;
+	margin: 2rem auto;
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	padding: 2rem;
+	backdrop-filter: blur(12px);
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 1rem;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.service-img {
+	width: 300px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+	flex-shrink: 0;
+}
+
+.service-text {
+	flex: 1;
+	color: #FFD700;
+	text-shadow: 1px 1px 2px #000;
+}
+
+.service-text h2 {
+	font-size: 1.8rem;
+	margin-bottom: 0.5rem;
+}
+
+.service-text p {
+	font-size: 1.1rem;
+	line-height: 1.6;
+}
+
+@media (max-width: 768px) {
 	.service-blur {
-		max-width: 1100px;
-		margin: 2rem auto;
-		display: flex;
-		flex-direction: row;
-		gap: 2rem;
-		padding: 2rem;
-		backdrop-filter: blur(12px);
-		background-color: rgba(0, 0, 0, 0.5);
-		border-radius: 1rem;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		align-items: center;
-		flex-wrap: wrap;
+		flex-direction: column;
+		text-align: center;
 	}
 
 	.service-img {
-		width: 300px;
-		height: 200px;
-		object-fit: cover;
-		border-radius: 0.5rem;
-		box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
-		flex-shrink: 0;
+		width: 100%;
+		height: auto;
 	}
-
-	.service-text {
-		flex: 1;
-		color: #FFD700;
-		text-shadow: 1px 1px 2px #000;
-	}
-
-	.service-text h2 {
-		font-size: 1.8rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.service-text p {
-		font-size: 1.1rem;
-		line-height: 1.6;
-	}
-
-	@media (max-width: 768px) {
-		.service-blur {
-			flex-direction: column;
-			text-align: center;
-		}
-
-		.service-img {
-			width: 100%;
-			height: auto;
-		}
-	}
+}
 </style>
