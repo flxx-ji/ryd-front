@@ -1,28 +1,18 @@
 <script>
 	import { onMount } from 'svelte';
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import '@splidejs/splide/dist/css/splide.min.css';
 	import Splide from '@splidejs/splide';
 
 	const baseURL = import.meta.env.VITE_API_URL;
 
-	// let titreImage = "http://localhost:5001/uploads/EvénementsF.webp";
-	// let images = [
-	// 	"http://localhost:5001/uploads/event1.webp",
-	// 	"http://localhost:5001/uploads/event2.webp",
-	// 	"http://localhost:5001/uploads/event2-1.webp"
-	// ];
-
-	let titreImage = `${baseURL}/uploads/Evenements2X.webp`;
 	let images = [
 		`${baseURL}/uploads/event1.webp`,
 		`${baseURL}/uploads/event2.webp`,
 		`${baseURL}/uploads/event2-1.webp`
 	];
 
-
 	onMount(() => {
-		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/eventBackground.webp')";
-		
 		document.body.style.backgroundImage = `url('${baseURL}/uploads/services2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
@@ -40,18 +30,16 @@
 	});
 </script>
 
-<div class="titre-wrapper">
-	<h1 class="titre-stroke">Événements</h1>
-	<h1 class="titre-fill">Événements</h1>
-</div>
+<!-- ✅ Titre identique à toutes les pages -->
+<TitreChicanos text="Événements" />
 
-
+<!-- ✅ Bloc intro flouté -->
 <div class="text-blur">
 	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">Les événements Ride Your Dreams</h2>
 	<p class="text-center mb-4">Rassemblements, tattoos, balades, festivals... Chaque moment est une fête et une occasion de vibrer ensemble.</p>
 </div>
 
-<!-- Carrousel -->
+<!-- ✅ Carrousel Splide -->
 <div class="splide mt-8 max-w-4xl mx-auto rounded-xl overflow-hidden shadow-xl">
 	<div class="splide__track">
 		<ul class="splide__list">
@@ -65,8 +53,6 @@
 </div>
 
 <style>
- 
-
 	.text-blur {
 		max-width: 900px;
 		margin: 2rem auto;
@@ -79,25 +65,22 @@
 		text-shadow: 1px 1px 2px black;
 	}
 
-    .splide__slide img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 80vh; /* plus fluide que 650px fixe */
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
-  border-radius: 0.75rem;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-}
+	.splide__slide img {
+		display: block;
+		margin: 0 auto;
+		max-width: 100%;
+		max-height: 80vh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		object-position: center;
+		border-radius: 0.75rem;
+		box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+	}
 
-
-
-.splide__track {
-	background-color: rgba(0, 0, 0, 0.65); /* fond noir transparent */
-	padding: 2rem;
-	border-radius: 1rem;
-}
-
+	.splide__track {
+		background-color: rgba(0, 0, 0, 0.65);
+		padding: 2rem;
+		border-radius: 1rem;
+	}
 </style>
