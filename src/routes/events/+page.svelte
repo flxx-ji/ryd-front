@@ -1,3 +1,38 @@
+
+<script>
+	import { onMount } from 'svelte';
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
+	import '@splidejs/splide/dist/css/splide.min.css';
+	import Splide from '@splidejs/splide';
+
+	const baseURL = import.meta.env.VITE_API_URL;
+
+	let images = [
+		${baseURL}/uploads/event1.webp,
+		${baseURL}/uploads/event2.webp,
+		${baseURL}/uploads/event2-1.webp
+	];
+
+	onMount(() => {
+		document.body.style.backgroundImage = url('${baseURL}/uploads/services2.webp');
+		document.body.style.backgroundSize = 'cover';
+		document.body.style.backgroundRepeat = 'no-repeat';
+		document.body.style.backgroundPosition = 'center';
+		document.body.style.backgroundAttachment = 'fixed';
+
+		new Splide('.splide', {
+			type: 'loop',
+			perPage: 1,
+			autoplay: true,
+			interval: 3000,
+			pagination: false,
+			arrows: true
+		}).mount();
+	});
+</script>
+
+
+
 <!-- Titre -->
 <TitreChicanos text="events" />
 
