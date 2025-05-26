@@ -37,7 +37,8 @@
 	}
 </script>
 
-<TitreChicanos text="events" />
+<TitreChicanos text="Événements" />
+
 
 <div class="text-blur">
 	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">Les événements Ride Your Dreams</h2>
