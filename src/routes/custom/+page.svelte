@@ -1,29 +1,22 @@
 <script>
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import { onMount } from 'svelte';
 
 	const baseURL = import.meta.env.VITE_API_URL;
 
-
-	// let titreImage = "http://localhost:5001/uploads/CustomF.webp";
-	let titreImage = `${baseURL}/uploads/Custom2X.webp`;
-
 	onMount(() => {
-		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/garageCustom.webp')";
-
 		document.body.style.backgroundImage = `url('${baseURL}/uploads/garageCustom.webp')`;
- 		document.body.style.backgroundSize = 'cover';
+		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
 		document.body.style.backgroundPosition = 'center';
 		document.body.style.backgroundAttachment = 'fixed';
 	});
 </script>
 
-<div class="titre-wrapper">
-	<h1 class="titre-stroke">Custom</h1>
-	<h1 class="titre-fill">Custom</h1>
-</div>
+<!-- ✅ Titre stylisé identique à Home -->
+<TitreChicanos text="Custom" />
 
-
+<!-- ✅ Texte flouté avec contenu -->
 <div class="text-blur">
 	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">
 		Préparation & Customisation
@@ -49,9 +42,6 @@
 </div>
 
 <style>
-		 
-
-
 	.text-blur {
 		max-width: 900px;
 		margin: 2rem auto;
