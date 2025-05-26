@@ -1,20 +1,14 @@
 <script>
+	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import MotoCard from '$lib/components/MotoCard.svelte';
 	import { onMount } from 'svelte';
 
 	export let data;
-
-	// 🌐 URL API
 	const baseURL = import.meta.env.VITE_API_URL;
 
-	// 📦 Les motos sont injectées depuis +page.js
 	let motos = data.motos;
 
-	// 🖼️ Gestion de l'image de fond (client-side uniquement)
 	onMount(() => {
-		// 🎯 Pour retour dev local si besoin :
-		// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/catalogue2.webp')";
-
 		document.body.style.backgroundImage = `url('${baseURL}/uploads/catalogue2.webp')`;
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.backgroundRepeat = 'no-repeat';
@@ -23,29 +17,17 @@
 	});
 </script>
 
-<div class="page-section">
-	<div class="titre-wrapper">
-	<h1 class="titre-stroke">Catalogue</h1>
-	<h1 class="titre-fill">Catalogue</h1>
-</div>
+<!-- ✅ Titre stylisé identique à Home -->
+<TitreChicanos text="Catalogue" />
 
-
-	<div class="catalogue">
-		{#each motos as moto}
-			<MotoCard {moto} />
-		{/each}
-	</div>
+<!-- ✅ Liste des motos -->
+<div class="catalogue">
+	{#each motos as moto}
+		<MotoCard {moto} />
+	{/each}
 </div>
 
 <style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-	}
-
-		 
-
-	 
 	.catalogue {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -54,7 +36,5 @@
 		width: 100%;
 		max-width: 1200px;
 		margin: 0 auto;
-		padding-top: 0;
-		 
 	}
 </style>
