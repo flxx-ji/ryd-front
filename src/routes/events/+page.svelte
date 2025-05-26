@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
-	import '@splidejs/splide/dist/css/splide.min.css';
+	 
 	import Splide from '@splidejs/splide';
 	import * as basicLightbox from 'basiclightbox';
 
