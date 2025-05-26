@@ -23,16 +23,18 @@
     font-family: 'Chicanos', cursive;
     color: transparent;
     -webkit-text-stroke: var(--stroke-size, 2px) #000;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    font-size: var(--font-size, 4.5rem);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* ✅ manquant */
     z-index: 1;
   }
 
   .titre-fill {
     font-family: 'Chicanos', cursive;
+    font-size: var(--font-size, 4.5rem);
     color: #D4AF37;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-    z-index: 2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* ✅ manquant */
     position: relative;
+    z-index: 2;
   }
 </style>
 
