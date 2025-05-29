@@ -16,7 +16,7 @@
 		try {
 			const token = getAdminToken();
 			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
-			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/clients/${id}`, {
+			const res = await fetch(`https://ryd-backend2-production.up.railway.app/api/admin/clients/${id}`, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}

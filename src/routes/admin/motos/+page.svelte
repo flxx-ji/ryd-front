@@ -7,7 +7,7 @@
 	let loading = true;
 	let error = '';
 
-	 const baseURL = 'https://ryd-backend2-iryz.onrender.com'; // 🌍 PROD
+	 const baseURL = import.meta.env.VITE_API_URL; // 🌍 PROD
 	// const baseURL = 'http://localhost:5001'; // 🖥️ LOCAL
 
 	onMount(async () => {

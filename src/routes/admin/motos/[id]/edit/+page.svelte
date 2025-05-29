@@ -10,7 +10,7 @@
 	let image: File | null = null;
 
 	const id = $page.params.id;
-	const baseURL = 'https://ryd-backend2-iryz.onrender.com';
+	const baseURL = import.meta.env.VITE_API_URL;
 
 	// 🔁 Calcul automatique des tarifs si unJour est modifié
 	$: if (moto?.tarifs?.unJour > 0) {
