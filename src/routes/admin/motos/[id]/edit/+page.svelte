@@ -1,46 +1,44 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { getAdminToken } from '$lib/utils/auth';
 
-	let moto = null;
-	let error = '';
-	let loading = true;
-	let imagePreview = '';
-	let image: File | null = null;
-
-	const id = $page.params.id;
 	const baseURL = import.meta.env.VITE_API_URL;
+	const id = $page.params.id;
 
-	// 🔁 Calcul automatique des tarifs si unJour est modifié
-	$: if (moto?.tarifs?.unJour > 0) {
-		const prix = (j: number, remise: number) => ((moto.tarifs.unJour * j) * (1 - remise)).toFixed(2);
-		moto.tarifs.deuxTroisJours = `${prix(2, 0.05)} € / ${prix(3, 0.05)} €`;
-		moto.tarifs.quatreCinqJours = `${prix(4, 0.10)} € / ${prix(5, 0.15)} €`;
-		moto.tarifs.uneSemaine = parseFloat(prix(6, 0.20));
-	}
+	// Champs de la moto
+	let nom = '';
+	let modele = '';
+	let annee = '';
+	let couleur = '';
+	let prix = '';
+	let image = '';
+	let description = '';
+	let autonomie = '';
 
-	// ✅ Envoie tous les champs modifiés à l'enregistrement global
-	const sauvegarderTout = async () => {
+	let error = '';
+	let success = '';
+
+	// 🔽 Charger la moto existante
+	onMount(async () => {
 		try {
 			const token = getAdminToken();
 			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`
-				},
-				body: JSON.stringify(moto)
+				headers: { Authorization: `Bearer ${token}` }
 			});
-			if (!res.ok) throw new Error("Erreur lors de la sauvegarde générale");
-			alert("✅ Modifications enregistrées avec succès");
+			if (!res.ok) throw new Error(await res.text());
+			const data = await res.json();
+
+			// Remplissage des champs
+			({ nom, modele, annee, couleur, prix, image, description, autonomie } = data);
 		} catch (err) {
 			error = err.message;
 		}
-	};
+	});
 
-	// ✅ Envoie uniquement un champ modifié
-	const updateChamp = async (key: string, value: any) => {
+	// ✏️ Modifier la moto (PATCH)
+	const modifierMoto = async () => {
 		try {
 			const token = getAdminToken();
 			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
@@ -49,114 +47,98 @@
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`
 				},
-				body: JSON.stringify({ key, value })
+				body: JSON.stringify({ nom, modele, annee, couleur, prix, image, description, autonomie })
 			});
-			if (!res.ok) throw new Error("Erreur de mise à jour");
+			if (!res.ok) throw new Error(await res.text());
+			success = '✅ Moto mise à jour !';
 		} catch (err) {
 			error = err.message;
 		}
 	};
 
-	// ✅ Upload d'une nouvelle image
-	const updateImage = async () => {
-		if (!image) return;
-		const formData = new FormData();
-		formData.append('image', image);
-		try {
-			const token = getAdminToken();
-			const res = await fetch(`${baseURL}/api/admin/motos/${id}/image`, {
-				method: 'POST',
-				headers: { Authorization: `Bearer ${token}` },
-				body: formData
-			});
-			if (!res.ok) throw new Error("Erreur upload image");
-			const data = await res.json();
-			moto.image = data.image;
-			imagePreview = data.image;
-		} catch (err) {
-			error = err.message;
-		}
-	};
-
-	// ✅ Récupération des données moto à l'ouverture de la page
-	onMount(async () => {
+	// 🗑️ Supprimer la moto (DELETE)
+	const supprimerMoto = async () => {
+		if (!confirm('⚠️ Tu confirmes la suppression de cette moto ?')) return;
 		try {
 			const token = getAdminToken();
 			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
-				headers: { Authorization: `Bearer ${token}` }
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
 			});
-			if (!res.ok) throw new Error('Erreur de chargement');
-			moto = await res.json();
-			imagePreview = moto.image;
+			if (!res.ok) throw new Error(await res.text());
+			success = '✅ Moto supprimée';
+			setTimeout(() => goto('/admin/motos'), 1500); // Redirection douce
 		} catch (err) {
 			error = err.message;
-		} finally {
-			loading = false;
 		}
-	});
+	};
 </script>
 
-{#if loading} <p>Chargement...</p>
-{:else if error} <p class="text-danger">❌ {error}</p>
-{:else} <div class="container"> <h2>✏️ Modifier la moto</h2>
-<form on:submit|preventDefault> <!-- 🏍️ Infos de base --> <div class="mb-3"> <label class="form-label">Nom</label> <input class="form-control" bind:value={moto.nom} /> </div> <div class="mb-3"> <label class="form-label">Couleur</label> <input class="form-control" bind:value={moto.couleur} /> </div> <div class="mb-3"> <label class="form-label">Disponible</label> <select class="form-select" bind:value={moto.disponible}> <option value={true}>Oui</option> <option value={false}>Non</option> </select> </div>
+<!-- 🧾 Formulaire de modification -->
+<div class="container my-5">
+	<h3 class="mb-4">✏️ Modifier une moto</h3>
 
-```
-		<!-- 🖼️ Image -->
-		<div class="mb-3">
-			<label class="form-label">Image</label>
-			<input class="form-control" type="file" accept="image/*" on:change={(e) => {
-				image = (e.target as HTMLInputElement).files[0];
-				imagePreview = URL.createObjectURL(image);
-			}} />
-			{#if imagePreview}
-				<img src={imagePreview} alt="Preview" class="mt-2" style="max-width: 300px;" />
-			{/if}
-			<button type="button" class="btn btn-sm btn-outline-primary mt-2" on:click={updateImage}>Mettre à jour l'image</button>
+	<!-- ✅ / ❌ Feedback -->
+	{#if error}<p class="text-danger">{error}</p>{/if}
+	{#if success}<p class="text-success">{success}</p>{/if}
+
+	<form on:submit|preventDefault={modifierMoto} class="row g-3">
+
+		<!-- 📛 Nom -->
+		<div class="col-md-6">
+			<label class="form-label">Nom</label>
+			<input type="text" class="form-control" bind:value={nom} required />
 		</div>
 
-		<!-- 💰 Tarifs -->
-		<h4 class="mt-4">Tarifs</h4>
-		<div class="mb-3">
-			<label>1 jour</label>
-			<input class="form-control" type="number" bind:value={moto.tarifs.unJour} />
-		</div>
-		<div class="mb-3">
-			<label>2-3 jours</label>
-			<input class="form-control" bind:value={moto.tarifs.deuxTroisJours} />
-		</div>
-		<div class="mb-3">
-			<label>4-5 jours</label>
-			<input class="form-control" bind:value={moto.tarifs.quatreCinqJours} />
-		</div>
-		<div class="mb-3">
-			<label>1 semaine</label>
-			<input class="form-control" type="number" bind:value={moto.tarifs.uneSemaine} />
+		<!-- 🏷️ Modèle -->
+		<div class="col-md-6">
+			<label class="form-label">Modèle</label>
+			<input type="text" class="form-control" bind:value={modele} required />
 		</div>
 
-		<!-- ⚙️ Caractéristiques -->
-		<h4 class="mt-4">Caractéristiques</h4>
-		<div class="mb-3"><label>Moteur</label><input class="form-control" bind:value={moto.caracteristiques.moteur} /></div>
-		<div class="mb-3"><label>Cylindrée</label><input class="form-control" bind:value={moto.caracteristiques.cylindree} /></div>
-		<div class="mb-3"><label>Transmission</label><input class="form-control" bind:value={moto.caracteristiques.transmission} /></div>
-		<div class="mb-3"><label>Poids</label><input class="form-control" bind:value={moto.caracteristiques.poids} /></div>
-		<div class="mb-3"><label>Autonomie</label><input class="form-control" bind:value={moto.caracteristiques.autonomie} /></div>
-		<div class="mb-3"><label>Réservoir</label><input class="form-control" bind:value={moto.caracteristiques.reservoir} /></div>
+		<!-- 📆 Année -->
+		<div class="col-md-4">
+			<label class="form-label">Année</label>
+			<input type="number" class="form-control" bind:value={annee} required />
+		</div>
 
-		<!-- 📦 Équipements -->
-		<h4 class="mt-4">Équipements inclus</h4>
-		<ul>
-			{#each moto.equipements as equipement}
-				<li>{equipement}</li>
-			{/each}
-		</ul>
+		<!-- 🎨 Couleur -->
+		<div class="col-md-4">
+			<label class="form-label">Couleur</label>
+			<input type="text" class="form-control" bind:value={couleur} required />
+		</div>
 
-		<!-- ✅ Bouton global de sauvegarde -->
-		<div class="mt-4">
-			<button type="button" class="btn btn-success" on:click={sauvegarderTout}>💾 Sauvegarder toutes les modifications</button>
+		<!-- 💶 Prix -->
+		<div class="col-md-4">
+			<label class="form-label">Prix (€)</label>
+			<input type="number" class="form-control" bind:value={prix} required />
+		</div>
+
+		<!-- 🌐 Lien image -->
+		<div class="col-md-6">
+			<label class="form-label">Lien image</label>
+			<input type="url" class="form-control" bind:value={image} />
+		</div>
+
+		<!-- 🔋 Autonomie -->
+		<div class="col-md-6">
+			<label class="form-label">Autonomie (km)</label>
+			<input type="text" class="form-control" bind:value={autonomie} />
+		</div>
+
+		<!-- 📝 Description -->
+		<div class="col-12">
+			<label class="form-label">Description</label>
+			<textarea rows="4" class="form-control" bind:value={description}></textarea>
+		</div>
+
+		<!-- 🔘 Boutons -->
+		<div class="col-12 mt-4">
+			<button type="submit" class="btn btn-primary me-3">💾 Sauvegarder</button>
+			<button type="button" class="btn btn-danger" on:click={supprimerMoto}>🗑️ Supprimer</button>
+			<a href="/admin/motos" class="btn btn-secondary ms-3">⬅️ Retour</a>
 		</div>
 	</form>
 </div>
-```
-
-{/if}

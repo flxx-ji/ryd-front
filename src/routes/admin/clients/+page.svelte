@@ -1,25 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-
-	// 🔐 Centralisation de l'accès au token
-	import { getAdminToken } from '$lib/utils/auth';
+	import { getAdminToken } from '$lib/utils/auth'; // ✅ récupération du token proprement
 
 	let clients = [];
 	let loading = true;
 	let error = '';
 
-	// ✅ Chargement des clients dès le montage de la page
+	// ✅ Chargement automatique à l'ouverture de la page
 	onMount(async () => {
 		await chargerClients();
 	});
 
-	// 🔄 Fonction de récupération des clients
+	// 🔁 Fonction pour charger tous les clients depuis l’API
 	async function chargerClients() {
 		try {
 			loading = true;
-			const token = getAdminToken(); // 💡 récupération du token proprement
-			// const res = await fetch('http://localhost:5001/api/admin/clients', {
+			const token = getAdminToken();
 			const res = await fetch('https://ryd-backend2-iryz.onrender.com/api/admin/clients', {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -34,61 +31,59 @@
 		}
 	}
 
-	// 🗑️ Supprimer un client
+	// 🗑️ Suppression avec confirmation
 	async function supprimerClient(id: string) {
 		if (!confirm('❗ Supprimer ce client ?')) return;
 		try {
 			const token = getAdminToken();
-			// const res = await fetch(`http://localhost:5001/api/admin/clients/${id}`, {
 			const res = await fetch(`https://ryd-backend2-production.up.railway.app/api/admin/clients/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
 			});
-			if (!res.ok) throw new Error("Échec de la suppression");
+			if (!res.ok) throw new Error("Erreur lors de la suppression");
 			await chargerClients();
 		} catch (err) {
-			alert('Erreur lors de la suppression : ' + err.message);
+			alert('❌ Erreur : ' + err.message);
 		}
 	}
 
-	// ✏️ Redirection vers le formulaire d'édition
+	// ✏️ Redirige vers la fiche du client pour édition
 	function modifierClient(id: string) {
 		goto(`/admin/clients/${id}`);
 	}
 </script>
 
+<!-- 🎨 Bootstrap UI -->
 {#if loading}
-	<p>Chargement des clients...</p>
-
+	<div class="alert alert-info">Chargement des clients...</div>
 {:else if error}
-	<p class="text-danger">❌ {error}</p>
-
+	<div class="alert alert-danger">{error}</div>
 {:else}
-	<h1 class="text-xl font-bold mb-4">👥 Clients</h1>
-	<table class="w-full table-auto border">
-		<thead class="bg-gray-100">
+	<h1 class="mb-4">👥 Gestion des clients</h1>
+	<table class="table table-bordered table-striped">
+		<thead class="table-light">
 			<tr>
-				<th class="p-2">Nom</th>
-				<th class="p-2">Prénom</th>
-				<th class="p-2">Email</th>
-				<th class="p-2">Téléphone</th>
-				<th class="p-2">Permis</th>
-				<th class="p-2">Actions</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Email</th>
+				<th>Téléphone</th>
+				<th>Permis</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each clients as c}
-				<tr class="border-t">
-					<td class="p-2">{c.nom}</td>
-					<td class="p-2">{c.prenom}</td>
-					<td class="p-2">{c.email}</td>
-					<td class="p-2">{c.telephone}</td>
-					<td class="p-2">{c.permis}</td>
-					<td class="p-2 space-x-2">
-						<button on:click={() => modifierClient(c._id)} class="bg-blue-500 text-white px-2 py-1 rounded">Modifier</button>
-						<button on:click={() => supprimerClient(c._id)} class="bg-red-500 text-white px-2 py-1 rounded">Supprimer</button>
+				<tr>
+					<td>{c.nom}</td>
+					<td>{c.prenom}</td>
+					<td>{c.email}</td>
+					<td>{c.telephone}</td>
+					<td>{c.permis}</td>
+					<td>
+						<button on:click={() => modifierClient(c._id)} class="btn btn-sm btn-primary me-2">Modifier</button>
+						<button on:click={() => supprimerClient(c._id)} class="btn btn-sm btn-danger">Supprimer</button>
 					</td>
 				</tr>
 			{/each}

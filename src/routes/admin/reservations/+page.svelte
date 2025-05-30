@@ -1,29 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	const baseURL = import.meta.env.VITE_API_URL;
-
-
-	// 🔐 Utilisation centralisée du token
 	import { getAdminToken } from '$lib/utils/auth';
+	const baseURL = import.meta.env.VITE_API_URL;
 
 	let reservations = [];
 	let loading = true;
 	let error = '';
 
-	// ✅ Fonction pour charger les réservations depuis l'API
+	// ✅ Récupère toutes les réservations dès que la page est montée
 	onMount(async () => {
 		await fetchReservations();
 	});
 
-	// 🔄 Recharge les réservations (appelée aussi après suppression ou update)
+	// 📦 Fonction de chargement des réservations depuis l’API
 	async function fetchReservations() {
 		try {
-			const token = getAdminToken(); // 🔐 Utilise le token de manière propre
-
-			// const res = await fetch('http://localhost:5001/api/admin/reservations', {
-
+			const token = getAdminToken();
 			const res = await fetch(`${baseURL}/api/admin/reservations`, {
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -40,14 +33,11 @@
 		}
 	}
 
-	// 🟢 Met à jour le statut d'une réservation
+	// 🟢 Modifie le statut d'une réservation
 	async function updateStatut(id: string, nouveauStatut: string) {
 		try {
 			const token = getAdminToken();
-			// await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
-
 			await fetch(`${baseURL}/api/admin/reservations/${id}`, {
-
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -55,72 +45,73 @@
 				},
 				body: JSON.stringify({ statut: nouveauStatut })
 			});
-			await fetchReservations();
+			await fetchReservations(); // Recharge les données
 		} catch (err) {
 			alert("Erreur lors de la mise à jour du statut");
 			console.error(err);
 		}
 	}
 
-	// 🗑️ Supprime une réservation après confirmation
+	// ❌ Supprime une réservation (avec confirmation)
 	async function supprimerReservation(id: string) {
 		const confirmation = confirm("Voulez-vous vraiment supprimer cette réservation ?");
 		if (!confirmation) return;
 
 		try {
 			const token = getAdminToken();
-			// const res = await fetch(`http://localhost:5001/api/admin/reservations/${id}`, {
-
 			const res = await fetch(`${baseURL}/api/admin/reservations/${id}`, {
-
 				method: 'DELETE',
 				headers: {
 					Authorization: `Bearer ${token}`
 				}
 			});
+
 			if (!res.ok) throw new Error('Erreur lors de la suppression');
-			await fetchReservations();
+			await fetchReservations(); // Recharge les données
 		} catch (err) {
 			console.error("❌ Erreur suppression :", err);
 			alert("Impossible de supprimer la réservation.");
 		}
 	}
 </script>
+
 {#if loading}
-	<p>⏳ Chargement des réservations...</p>
-
+	<!-- ⏳ Indicateur de chargement -->
+	<div class="alert alert-info">Chargement des réservations...</div>
 {:else if error}
-	<p class="text-danger">❌ {error}</p>
-
+	<!-- ❌ Message d'erreur -->
+	<div class="alert alert-danger">{error}</div>
 {:else}
-	<h1 class="text-xl font-bold mb-4">📋 Réservations</h1>
-	<table class="w-full table-auto border">
-		<thead>
-			<tr class="bg-gray-100">
-				<th class="p-2">Client</th>
-				<th class="p-2">Moto</th>
-				<th class="p-2">Dates</th>
-				<th class="p-2">Statut</th>
-				<th class="p-2">Prix (€)</th>
-				<th class="p-2">Actions</th>
+	<!-- ✅ Tableau des réservations -->
+	<h1 class="mb-4">📋 Réservations</h1>
+
+	<table class="table table-hover table-bordered">
+		<thead class="table-light">
+			<tr>
+				<th>Client</th>
+				<th>Moto</th>
+				<th>Dates</th>
+				<th>Statut</th>
+				<th>Prix (€)</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each reservations as r}
-				<tr class="border-t">
-					<td class="p-2">{r.clientId?.prenom} {r.clientId?.nom}</td>
-					<td class="p-2">{r.motoId?.nom} ({r.motoId?.modele})</td>
-					<td class="p-2">{r.dateDebut.slice(0,10)} → {r.dateFin.slice(0,10)}</td>
-					<td class="p-2">
-						<select bind:value={r.statut} on:change={() => updateStatut(r._id, r.statut)} class="border px-2 py-1 rounded">
+				<tr>
+					<td>{r.clientId?.prenom} {r.clientId?.nom}</td>
+					<td>{r.motoId?.nom} ({r.motoId?.modele})</td>
+					<td>{r.dateDebut.slice(0,10)} → {r.dateFin.slice(0,10)}</td>
+					<td>
+						<select bind:value={r.statut} on:change={() => updateStatut(r._id, r.statut)} class="form-select">
 							<option value="en attente">En attente</option>
 							<option value="confirmée">Confirmée</option>
 							<option value="annulée">Annulée</option>
 						</select>
 					</td>
-					<td class="p-2">{r.prixTotal}</td>
-					<td class="p-2 text-center">
-						<button on:click={() => supprimerReservation(r._id)} class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+					<td>{r.prixTotal}</td>
+					<td>
+						<button on:click={() => supprimerReservation(r._id)} class="btn btn-danger btn-sm">
 							Supprimer
 						</button>
 					</td>
