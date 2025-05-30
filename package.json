@@ -22,6 +22,7 @@
 	},
 	"dependencies": {
 		"@splidejs/splide": "^4.1.4",
+		"@zerodevx/svelte-toast": "^0.9.6",
 		"basiclightbox": "^5.0.4",
 		"lucide-svelte": "^0.503.0"
 	}

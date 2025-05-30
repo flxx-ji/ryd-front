@@ -1,4 +1,6 @@
 <script>
+	import SvelteToast from '@zerodevx/svelte-toast';
+	
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import '../assets/app.css';
@@ -56,6 +58,9 @@
 		if (unsubscribe) unsubscribe();
 	});
 </script>
+
+<SvelteToast position="top-center"/>
+<slot />
 
 {#if showLayout}
 	<Header />

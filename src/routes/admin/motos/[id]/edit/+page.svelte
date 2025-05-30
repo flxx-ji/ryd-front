@@ -1,144 +1,191 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import { getAdminToken } from '$lib/utils/auth';
+  import { onMount } from 'svelte';
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
+  import { getAdminToken } from '$lib/utils/auth';
 
-	const baseURL = import.meta.env.VITE_API_URL;
-	const id = $page.params.id;
+  const baseURL = import.meta.env.VITE_API_URL;
 
-	// Champs de la moto
-	let nom = '';
-	let modele = '';
-	let annee = '';
-	let couleur = '';
-	let prix = '';
-	let image = '';
-	let description = '';
-	let autonomie = '';
+  let id: string;
+  let moto = null;
+  let error = '';
+  let imagePreview = '';
+  let newImage: File | null = null;
 
-	let error = '';
-	let success = '';
+  // ✅ Champs textarea pour objets complexes
+  let equipementsTexte = '';
+  let caracteristiquesTexte = '';
 
-	// 🔽 Charger la moto existante
-	onMount(async () => {
-		try {
-			const token = getAdminToken();
-			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
-				headers: { Authorization: `Bearer ${token}` }
-			});
-			if (!res.ok) throw new Error(await res.text());
-			const data = await res.json();
+  // 🔁 Charger la moto
+  $: id = $page.params.id;
 
-			// Remplissage des champs
-			({ nom, modele, annee, couleur, prix, image, description, autonomie } = data);
-		} catch (err) {
-			error = err.message;
-		}
-	});
+  onMount(async () => {
+    try {
+      const token = getAdminToken();
+      const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error('Erreur de chargement');
+      moto = await res.json();
+      imagePreview = moto.image;
 
-	// ✏️ Modifier la moto (PATCH)
-	const modifierMoto = async () => {
-		try {
-			const token = getAdminToken();
-			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`
-				},
-				body: JSON.stringify({ nom, modele, annee, couleur, prix, image, description, autonomie })
-			});
-			if (!res.ok) throw new Error(await res.text());
-			success = '✅ Moto mise à jour !';
-		} catch (err) {
-			error = err.message;
-		}
-	};
+      // Textareas JSON
+      equipementsTexte = JSON.stringify(moto.equipements || [], null, 2);
+      caracteristiquesTexte = JSON.stringify(moto.caracteristiques || {}, null, 2);
+    } catch (err) {
+      error = err.message;
+    }
+  });
 
-	// 🗑️ Supprimer la moto (DELETE)
-	const supprimerMoto = async () => {
-		if (!confirm('⚠️ Tu confirmes la suppression de cette moto ?')) return;
-		try {
-			const token = getAdminToken();
-			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
-				method: 'DELETE',
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
-			});
-			if (!res.ok) throw new Error(await res.text());
-			success = '✅ Moto supprimée';
-			setTimeout(() => goto('/admin/motos'), 1500); // Redirection douce
-		} catch (err) {
-			error = err.message;
-		}
-	};
+  // ✅ PATCH infos moto
+  async function updateMoto() {
+    try {
+      moto.equipements = JSON.parse(equipementsTexte);
+      moto.caracteristiques = JSON.parse(caracteristiquesTexte);
+
+      const token = getAdminToken();
+      const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(moto)
+      });
+      if (!res.ok) throw new Error('Erreur lors de la mise à jour');
+      alert('✅ Moto mise à jour');
+    } catch (err) {
+      alert(`❌ ${err.message}`);
+    }
+  }
+
+  // ✅ PATCH image 
+  async function updateImage() {
+    if (!newImage) return;
+    const formData = new FormData();
+    formData.append('image', newImage);
+
+    try {
+      const token = getAdminToken();
+      const res = await fetch(`${baseURL}/api/admin/motos/${id}/image`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
+      });
+      if (!res.ok) throw new Error('Erreur upload image');
+      const updated = await res.json();
+      imagePreview = updated.image;
+      alert('✅ Image mise à jour');
+    } catch (err) {
+      alert(`❌ ${err.message}`);
+    }
+  }
+
+  // 🗑️ DELETE
+  async function deleteMoto() {
+    if (!confirm("❗ Supprimer cette moto ?")) return;
+    try {
+      const token = getAdminToken();
+      const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!res.ok) throw new Error('Suppression échouée');
+      alert('🗑️ Moto supprimée');
+      goto('/admin/motos');
+    } catch (err) {
+      alert(`❌ ${err.message}`);
+    }
+  }
 </script>
 
-<!-- 🧾 Formulaire de modification -->
-<div class="container my-5">
-	<h3 class="mb-4">✏️ Modifier une moto</h3>
+{#if moto}
+  <div class="container py-4">
+    <h2 class="mb-4">✏️ Modifier la moto</h2>
 
-	<!-- ✅ / ❌ Feedback -->
-	{#if error}<p class="text-danger">{error}</p>{/if}
-	{#if success}<p class="text-success">{success}</p>{/if}
+    <!-- Aperçu de l'image -->
+    {#if imagePreview}
+      <img src={imagePreview} alt="Image moto" class="img-fluid mb-3" style="max-width: 300px;" />
+    {/if}
 
-	<form on:submit|preventDefault={modifierMoto} class="row g-3">
+    <div class="mb-3">
+      <label class="form-label">Changer l'image</label>
+      <input type="file" class="form-control" accept="image/*"
+        on:change={(e) => { newImage = e.target.files[0]; updateImage(); }} />
+    </div>
 
-		<!-- 📛 Nom -->
-		<div class="col-md-6">
-			<label class="form-label">Nom</label>
-			<input type="text" class="form-control" bind:value={nom} required />
-		</div>
+    <!-- Champs simples -->
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Nom</label>
+        <input class="form-control" bind:value={moto.nom} />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Modèle</label>
+        <input class="form-control" bind:value={moto.modele} />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Marque</label>
+        <input class="form-control" bind:value={moto.marque} />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Année</label>
+        <input type="number" class="form-control" bind:value={moto.annee} />
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Couleur</label>
+        <input class="form-control" bind:value={moto.couleur} />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Disponible</label>
+        <select class="form-select" bind:value={moto.disponible}>
+          <option value={true}>Oui</option>
+          <option value={false}>Non</option>
+        </select>
+      </div>
+    </div>
 
-		<!-- 🏷️ Modèle -->
-		<div class="col-md-6">
-			<label class="form-label">Modèle</label>
-			<input type="text" class="form-control" bind:value={modele} required />
-		</div>
+    <!-- Tarifs -->
+    <h5 class="mt-4">Tarifs</h5>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label>1 jour</label>
+        <input class="form-control" type="number" bind:value={moto.tarifs.unJour} />
+      </div>
+      <div class="col-md-3">
+        <label>2-3 jours</label>
+        <input class="form-control" bind:value={moto.tarifs.deuxTroisJours} />
+      </div>
+      <div class="col-md-3">
+        <label>4-5 jours</label>
+        <input class="form-control" bind:value={moto.tarifs.quatreCinqJours} />
+      </div>
+      <div class="col-md-3">
+        <label>1 semaine</label>
+        <input class="form-control" type="number" bind:value={moto.tarifs.uneSemaine} />
+      </div>
+    </div>
 
-		<!-- 📆 Année -->
-		<div class="col-md-4">
-			<label class="form-label">Année</label>
-			<input type="number" class="form-control" bind:value={annee} required />
-		</div>
+    <!-- Caractéristiques -->
+    <div class="mt-4">
+      <label class="form-label">Caractéristiques (JSON)</label>
+      <textarea class="form-control" rows="4" bind:value={caracteristiquesTexte}></textarea>
+    </div>
 
-		<!-- 🎨 Couleur -->
-		<div class="col-md-4">
-			<label class="form-label">Couleur</label>
-			<input type="text" class="form-control" bind:value={couleur} required />
-		</div>
+    <!-- Équipements -->
+    <div class="mt-3">
+      <label class="form-label">Équipements (JSON)</label>
+      <textarea class="form-control" rows="3" bind:value={equipementsTexte}></textarea>
+    </div>
 
-		<!-- 💶 Prix -->
-		<div class="col-md-4">
-			<label class="form-label">Prix (€)</label>
-			<input type="number" class="form-control" bind:value={prix} required />
-		</div>
-
-		<!-- 🌐 Lien image -->
-		<div class="col-md-6">
-			<label class="form-label">Lien image</label>
-			<input type="url" class="form-control" bind:value={image} />
-		</div>
-
-		<!-- 🔋 Autonomie -->
-		<div class="col-md-6">
-			<label class="form-label">Autonomie (km)</label>
-			<input type="text" class="form-control" bind:value={autonomie} />
-		</div>
-
-		<!-- 📝 Description -->
-		<div class="col-12">
-			<label class="form-label">Description</label>
-			<textarea rows="4" class="form-control" bind:value={description}></textarea>
-		</div>
-
-		<!-- 🔘 Boutons -->
-		<div class="col-12 mt-4">
-			<button type="submit" class="btn btn-primary me-3">💾 Sauvegarder</button>
-			<button type="button" class="btn btn-danger" on:click={supprimerMoto}>🗑️ Supprimer</button>
-			<a href="/admin/motos" class="btn btn-secondary ms-3">⬅️ Retour</a>
-		</div>
-	</form>
-</div>
+    <!-- Boutons -->
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn btn-success" on:click={updateMoto}>💾 Sauvegarder</button>
+      <button class="btn btn-outline-danger ms-auto" on:click={deleteMoto}>🗑️ Supprimer</button>
+    </div>
+  </div>
+{:else if error}
+  <div class="alert alert-danger mt-4">❌ {error}</div>
+{:else}
+  <div class="text-center mt-5">⏳ Chargement...</div>
+{/if}
