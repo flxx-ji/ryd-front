@@ -7,14 +7,16 @@
 	let moto: any = {};
 	let loading = true;
 	let error = '';
-
+    
+	const baseURL = import.meta.env.VITE_API_URL;
+	
 	const id = $page.params.id;
 
 	// 🟢 Récupère les infos de la moto au chargement de la page
 	onMount(async () => {
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/motos/${id}`, {
+			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 				headers: { Authorization: `Bearer ${token}` }
 			});
 
@@ -31,7 +33,7 @@
 	async function updateMoto() {
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/motos/${id}`, {
+			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
@@ -53,7 +55,7 @@
 		if (!confirm('❗ Supprimer cette moto ?')) return;
 		try {
 			const token = getAdminToken();
-			const res = await fetch(`https://ryd-backend2-iryz.onrender.com/api/admin/motos/${id}`, {
+			const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
 				method: 'DELETE',
 				headers: { Authorization: `Bearer ${token}` }
 			});
