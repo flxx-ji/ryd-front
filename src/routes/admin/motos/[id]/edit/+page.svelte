@@ -25,7 +25,7 @@
       if (!res.ok) throw new Error('Erreur chargement moto');
       moto = await res.json();
       imagePreview = moto.image;
-      equipementsTexte = (moto.equipements || []).join(', ');
+      equipementsTexte = moto.equipements?.join(', ') || '';
     } catch (err) {
       error = err.message;
     } finally {
@@ -33,11 +33,25 @@
     }
   });
 
+  // 🧠 Calcul automatique des tarifs
+  $: if (moto?.tarifs?.unJour > 0) {
+    const unJour = moto.tarifs.unJour;
+    const prix = (j: number, remise: number) => ((unJour * j) * (1 - remise)).toFixed(2);
+    moto.tarifs.deuxTroisJours = `${prix(2, 0.05)} € / ${prix(3, 0.05)} €`;
+    moto.tarifs.quatreCinqJours = `${prix(4, 0.10)} € / ${prix(5, 0.15)} €`;
+    moto.tarifs.uneSemaine = parseFloat(prix(6, 0.20));
+  }
+
   // 🔹 Sauvegarder toutes les modifications (PUT)
   async function sauvegarderTout() {
     try {
       const token = getAdminToken();
-      moto.equipements = equipementsTexte.split(',').map(e => e.trim()).filter(Boolean);
+
+      // Mettre à jour les équipements à partir du textarea
+      moto.equipements = equipementsTexte
+        .split(',')
+        .map((e: string) => e.trim())
+        .filter((e: string) => !!e);
 
       const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
         method: 'PUT',
@@ -48,7 +62,7 @@
         body: JSON.stringify(moto)
       });
       if (!res.ok) throw new Error('Erreur sauvegarde');
-      success = 'Modifications sauvegardées';
+      success = '✅ Modifications sauvegardées';
     } catch (err) {
       error = err.message;
     }
@@ -71,7 +85,7 @@
       const data = await res.json();
       moto.image = data.image;
       imagePreview = data.image;
-      success = 'Image mise à jour';
+      success = '✅ Image mise à jour';
     } catch (err) {
       error = err.message;
     }
@@ -154,15 +168,15 @@
       </div>
       <div class="col-md-3">
         <label class="form-label">2-3 jours</label>
-        <input class="form-control" bind:value={moto.tarifs.deuxTroisJours} />
+        <input class="form-control" bind:value={moto.tarifs.deuxTroisJours} readonly />
       </div>
       <div class="col-md-3">
         <label class="form-label">4-5 jours</label>
-        <input class="form-control" bind:value={moto.tarifs.quatreCinqJours} />
+        <input class="form-control" bind:value={moto.tarifs.quatreCinqJours} readonly />
       </div>
       <div class="col-md-3">
         <label class="form-label">1 semaine</label>
-        <input type="number" class="form-control" bind:value={moto.tarifs.uneSemaine} />
+        <input type="number" class="form-control" bind:value={moto.tarifs.uneSemaine} readonly />
       </div>
 
       <!-- Caractéristiques -->
@@ -176,7 +190,7 @@
 
       <!-- Équipements -->
       <div class="col-12">
-        <label class="form-label">Équipements (séparés par virgule)</label>
+        <label class="form-label">Équipements (séparés par des virgules)</label>
         <textarea class="form-control" rows="3" bind:value={equipementsTexte}></textarea>
       </div>
 
@@ -187,7 +201,7 @@
       </div>
 
       {#if success}
-        <p class="text-success mt-3">✅ {success}</p>
+        <p class="text-success mt-3">{success}</p>
       {/if}
     </form>
   </div>
