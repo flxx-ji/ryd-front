@@ -33,7 +33,7 @@
     }
   });
 
-  // 🧠 Calcul automatique des tarifs
+  // 🔁 Recalcul automatique des tarifs dès que le prix 1 jour est saisi
   $: if (moto?.tarifs?.unJour > 0) {
     const unJour = moto.tarifs.unJour;
     const prix = (j: number, remise: number) => ((unJour * j) * (1 - remise)).toFixed(2);
@@ -45,14 +45,8 @@
   // 🔹 Sauvegarder toutes les modifications (PUT)
   async function sauvegarderTout() {
     try {
+      moto.equipements = equipementsTexte.split(',').map(e => e.trim()).filter(Boolean);
       const token = getAdminToken();
-
-      // Mettre à jour les équipements à partir du textarea
-      moto.equipements = equipementsTexte
-        .split(',')
-        .map((e: string) => e.trim())
-        .filter((e: string) => !!e);
-
       const res = await fetch(`${baseURL}/api/admin/motos/${id}`, {
         method: 'PUT',
         headers: {
@@ -114,7 +108,7 @@
   <div class="alert alert-danger mt-4">❌ {error}</div>
 {:else if moto}
   <div class="container py-5">
-    <h2 class="mb-4">✏️ Modifier la moto</h2>
+    <h2 class="mb-4">✏️ Modifier une moto</h2>
 
     <!-- Aperçu image -->
     {#if imagePreview}
@@ -190,8 +184,8 @@
 
       <!-- Équipements -->
       <div class="col-12">
-        <label class="form-label">Équipements (séparés par des virgules)</label>
-        <textarea class="form-control" rows="3" bind:value={equipementsTexte}></textarea>
+        <label class="form-label">Équipements (séparés par virgules)</label>
+        <input class="form-control" bind:value={equipementsTexte} />
       </div>
 
       <!-- Actions -->
