@@ -29,10 +29,10 @@
 	const allerAJouter = () => goto('/admin/motos/new');
 
 	// 👁️ Voir détails d’une moto
-	const voirMoto = (id: string) => goto(`/admin/motos/${id}/edit`);
+	const voirMoto = (id: string) => goto(`/admin/motos/${id}/edit/`);
 
 	// ✏️ Modifier une moto
-	const modifierMoto = (id: string) => goto(`/admin/motos/${id}/edit`);
+	const modifierMoto = (id: string) => goto(`/admin/motos/${id}/edit/`);
 
 	// 🗑️ Supprimer une moto
 	const supprimerMoto = async (id: string) => {
