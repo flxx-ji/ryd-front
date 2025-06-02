@@ -1,24 +1,27 @@
-// src/routes/moto/[id]/+page.js
-
 import { PUBLIC_API_URL } from '$env/static/public';
 export const prerender = false;
 
-
 export async function load({ params, fetch }) {
-
   const apiUrl = PUBLIC_API_URL;
 
-    // const res = await fetch(`http://localhost:5001/api/motos/${params.id}`);
+  const res = await fetch(`${apiUrl}/api/motos/${params.id}`);
 
-    const res = await fetch(`${apiUrl}/api/motos/${params.id}`);
-    
-    if (!res.ok) {
-      throw new Error("Moto introuvable");
-    }
-  
-    const moto = await res.json();
+  // 🛑 S'il ne trouve pas la moto, on renvoie une erreur claire à Svelte
+  if (res.status === 404) {
     return {
-      moto
+      status: 404,
+      error: new Error("Moto introuvable")
     };
   }
-  
+
+  // 🛑 Si c’est une autre erreur
+  if (!res.ok) {
+    return {
+      status: 500,
+      error: new Error("Erreur serveur")
+    };
+  }
+
+  const moto = await res.json();
+  return { moto };
+}
