@@ -1,12 +1,10 @@
 <script>
-  import { PUBLIC_API_URL } from '$env/static/public';
-
-    export let data;
+   
     let moto = data.moto;
     
     // const baseURL = 'http://localhost:5001';
 
-    const baseURL = PUBLIC_API_URL;
+    const baseURL = import.meta.env.PUBLIC_API_URL;
 
      
   </script>

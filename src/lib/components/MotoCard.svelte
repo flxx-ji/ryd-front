@@ -1,11 +1,11 @@
 <script>
-  import { PUBLIC_API_URL } from '$env/static/public';
+  
 
   export let moto;
   let isHovered = false;
 
   // const baseURL = 'http://localhost:5001';
-  const baseURL = PUBLIC_API_URL;
+  const baseURL = import.meta.env.PUBLIC_API_URL;
 
 
   // 🔧 Corrige le chemin si besoin

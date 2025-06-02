@@ -2,11 +2,10 @@
 	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import MotoCard from '$lib/components/MotoCard.svelte';
 	import { onMount } from 'svelte';
-	import { PUBLIC_API_URL } from '$env/static/public';
-
+	 
 
 	export let data;
-	const baseURL = PUBLIC_API_URL;
+	const baseURL = import.meta.env.PUBLIC_API_URL;
 
 	let motos = data.motos;
 
