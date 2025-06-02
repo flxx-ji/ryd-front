@@ -1,9 +1,11 @@
 
  <script>
 	import { onMount } from 'svelte';
+	import { PUBLIC_API_URL } from '$env/static/public';
 
 
-	const baseURL = import.meta.env.VITE_API_URL;
+
+	const baseURL =  PUBLIC_API_URL;
 
 	// let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
 

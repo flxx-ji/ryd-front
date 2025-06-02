@@ -1,7 +1,10 @@
 /** @type {import('./$types').PageLoad} */
+
+import { PUBLIC_API_URL } from '$env/static/public';
+
 export async function load({ fetch }) {
 
-  const baseURL = import.meta.env.VITE_API_URL;
+  const baseURL = PUBLIC_API_URL;
 
     // const res = await fetch('http://localhost:5001/api/motos');
   
