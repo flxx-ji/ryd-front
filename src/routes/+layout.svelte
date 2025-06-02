@@ -8,6 +8,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { PUBLIC_API_URL } from '$env/static/public';
+	export const prerender = false;
 	 
 
 
@@ -64,7 +65,7 @@
 </script>
 
  
-<slot />
+ 
 
 {#if showLayout}
 	<Header />
