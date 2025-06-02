@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { PUBLIC_API_URL } from '$env/static/public';
   
 	// import { defaultClientConditions } from 'vite';
   
@@ -20,7 +21,7 @@
     let id;
     $: id = $page.params.id;
 
-    const baseURL = import.meta.env.PUBLIC_API_URL;
+    const baseURL = PUBLIC_API_URL;
 
   
     onMount(async () => {
