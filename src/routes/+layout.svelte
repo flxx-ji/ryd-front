@@ -1,5 +1,5 @@
 <script>
-	import { toast } from '@zerodevx/svelte-toast';
+	 
 
 	
 	import Header from '$lib/components/Header.svelte';
@@ -63,7 +63,7 @@
 	});
 </script>
 
-<SvelteToast position="top-center"/>
+ 
 <slot />
 
 {#if showLayout}
