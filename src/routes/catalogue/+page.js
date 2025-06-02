@@ -3,6 +3,7 @@
 // et injecter les données dans +page.svelte via la prop "data"
 
 import { PUBLIC_API_URL } from '$env/static/public';
+export const prerender = false;
 
 
 export async function load() {

@@ -1,6 +1,8 @@
 /** @type {import('./$types').PageLoad} */
 
 import { PUBLIC_API_URL } from '$env/static/public';
+export const prerender = false;
+
 
 export async function load({ fetch }) {
 

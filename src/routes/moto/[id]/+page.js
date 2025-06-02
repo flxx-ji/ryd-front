@@ -1,6 +1,8 @@
 // src/routes/moto/[id]/+page.js
 
 import { PUBLIC_API_URL } from '$env/static/public';
+export const prerender = false;
+
 
 export async function load({ params, fetch }) {
 
