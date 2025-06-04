@@ -148,7 +148,7 @@
 	}
 
 	h1 {
-		font-size: 2.5rem;
+		font-size: 4.5rem;
 		margin-bottom: 1rem;
 	}
 
