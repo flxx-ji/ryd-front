@@ -10,7 +10,7 @@
       <a href="https://www.youtube.com/" aria-label="YouTube"><Youtube size="24" /></a>
     </div>
     <div class="copyright">
-      © 2025 - Ride Your Dream. Tous droits réservés.
+      © 2025 - Free Torque. Tous droits réservés.
     </div>
   </div>
 </footer>
