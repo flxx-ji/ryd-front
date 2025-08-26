@@ -26,7 +26,7 @@
 <TitreChicanos text="Événements" />
 
 <div class="text-blur">
-	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">Les événements Ride Your Dreams</h2>
+	<h2 class="text-xl md:text-2xl font-bold text-gold text-center mb-4">Les événements Free Torque</h2>
 	<p class="text-center mb-4">Rassemblements, tattoos, balades, festivals... Chaque moment est une fête et une occasion de vibrer ensemble.</p>
 </div>
 

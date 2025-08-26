@@ -9,7 +9,7 @@
 
 	// let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
 
-	let titreImage = `${baseURL}/uploads/Ride your Dreams Custom MotorcycleQ.png`;
+	let titreImage = `${baseURL}/uploads/Free Torque.png`;
 	let title = '';
 	let description = '';
 
@@ -58,19 +58,19 @@
 	</button>
 
 	<section class="text-content">
-	  <h2>Présentation Officielle de Ride Your Dreams</h2>
+	  <h2>Présentation Officielle de Free Torque</h2>
 	  <p class="slogan">Liberté, découverte et culture motarde</p>
 
 	  <h3>🏍️ Notre histoire</h3>
 	  <p>
-		Ride Your Dreams est né d’une frustration personnelle : celle de ne pas pouvoir rouler à moto dans les plus beaux paysages du Sud pendant les vacances
+		Free Torque est né d’une frustration personnelle : celle de ne pas pouvoir rouler à moto dans les plus beaux paysages du Sud pendant les vacances
 		Cette sensation de manque, entre routes côtières, virages en montagne et villages pittoresques, a donné naissance à une idée simple mais forte : offrir à chacun la possibilité de vivre la route
 		C’est ainsi qu’est née Ride Your Dreams Custom Motorcycles, une entreprise basée à Toulon, dans le Var, dédiée à la location de motos exclusives, à la customisation, à l’organisation de balades sur mesure, et bien plus encore
 	  </p>
 
 	  <h3>🚀 Notre mission</h3>
 	  <p>
-		Chez Ride Your Dreams, nous ne nous contentons pas de louer des motos
+		Chez Free Torque, nous ne nous contentons pas de louer des motos
 		Nous proposons une expérience complète : un art de vivre, une connexion avec le territoire, une immersion culturelle et humaine
 		Nous voulons rendre à la moto ce qu’elle nous a offert : de la liberté, de l’estime, des rencontres, un chemin de vie
 	  </p>
