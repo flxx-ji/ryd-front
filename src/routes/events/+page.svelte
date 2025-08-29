@@ -2,11 +2,11 @@
 	import { onMount } from 'svelte';
 	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
 	import CarrouselRYD from '$lib/components/CarrouselRYD.svelte';
-	import { PUBLIC_API_URL } from '$env/static/public';
+	import { PUBLIC_API_URL2 } from '$env/static/public';
 	 
 
 
-	const baseURL = PUBLIC_API_URL;
+	const baseURL = PUBLIC_API_URL2;
 
 	let images = [
 		`${baseURL}/uploads/event1.webp`,

@@ -1,8 +1,8 @@
-import { PUBLIC_API_URL } from '$env/static/public';
+import { PUBLIC_API_URL2 } from '$env/static/public';
 export const prerender = false;
 
 export async function load({ params, fetch }) {
-  const apiUrl = PUBLIC_API_URL;
+  const apiUrl = PUBLIC_API_URL2;
   const id = params.id.trim(); // ✨ nettoyage
 
   const res = await fetch(`${apiUrl}/api/motos/${id}`);

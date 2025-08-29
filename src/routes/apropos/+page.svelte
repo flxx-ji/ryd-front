@@ -1,11 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import TitreChicanos from '$lib/components/TitreChicanos.svelte';
-	import { PUBLIC_API_URL } from '$env/static/public';
+	import { PUBLIC_API_URL2
+		
+	 } from '$env/static/public';
 	 
 
 
-	const baseURL = PUBLIC_API_URL;
+	const baseURL = PUBLIC_API_URL2
+	;
 
 	onMount(() => {
 		document.body.style.backgroundImage = `url('${baseURL}/uploads/apropos2.webp')`;

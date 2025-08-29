@@ -7,12 +7,12 @@
 	import '../assets/app.css';
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
-	import { PUBLIC_API_URL } from '$env/static/public';
+	import { PUBLIC_API_URL2 } from '$env/static/public';
 	export const prerender = false;
 	 
 
 
-	const baseURL = PUBLIC_API_URL;
+	const baseURL = PUBLIC_API_URL2;
 
 	let unsubscribe;
 	let showLayout = true;

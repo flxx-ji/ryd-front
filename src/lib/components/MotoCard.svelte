@@ -3,10 +3,10 @@
 
   export let moto;
   let isHovered = false;
-  import { PUBLIC_API_URL } from '$env/static/public';
+  import { PUBLIC_API_URL2 } from '$env/static/public';
 
   // const baseURL = 'http://localhost:5001';
-  const baseURL = PUBLIC_API_URL;
+  const baseURL = PUBLIC_API_URL2;
 
 
   // 🔧 Corrige le chemin si besoin

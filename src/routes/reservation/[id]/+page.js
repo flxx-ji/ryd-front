@@ -1,12 +1,12 @@
 /** @type {import('./$types').PageLoad} */
 
-import { PUBLIC_API_URL } from '$env/static/public';
+import { PUBLIC_API_URL2 } from '$env/static/public';
 export const prerender = false;
 
 
 export async function load({ fetch }) {
 
-  const baseURL = PUBLIC_API_URL;
+  const baseURL = PUBLIC_API_URL2;
 
     // const res = await fetch('http://localhost:5001/api/motos');
   

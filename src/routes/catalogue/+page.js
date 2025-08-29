@@ -2,13 +2,13 @@
 // Ce fichier permet de faire le fetch des motos côté serveur (SSR)
 // et injecter les données dans +page.svelte via la prop "data"
 
-import { PUBLIC_API_URL } from '$env/static/public';
+import { PUBLIC_API_URL2 } from '$env/static/public';
 export const prerender = false;
 
 
 export async function load() {
 	try {
-		const baseURL = PUBLIC_API_URL;
+		const baseURL = PUBLIC_API_URL2;
 
 		// 🔄 Appel API pour récupérer les motos
 		const res = await fetch(`${baseURL}/api/motos`);
