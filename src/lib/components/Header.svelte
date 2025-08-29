@@ -15,7 +15,7 @@
 </script>
 
 <header class="main-header">
-	<div class="logo">Ride Your Dream</div>
+	<div class="logo">Free Torque</div>
 
 	{#if !menuOpen}
 		<!-- Burger -->

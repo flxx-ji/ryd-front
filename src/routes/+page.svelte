@@ -39,8 +39,8 @@
 <!-- TITRE IMAGE -->
 <!-- TITRE CHICANOS SUPERPOSÉ -->
 <div class="titre-wrapper">
-	<h1 class="titre-stroke">Ride Your Dreams Custom Motorcycle</h1>
-	<h1 class="titre-fill">Ride Your Dreams Custom Motorcycle</h1>
+	<h1 class="titre-stroke">Free Torque</h1>
+	<h1 class="titre-fill"> Free Torque</h1>
 </div>
 
 
