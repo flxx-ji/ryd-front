@@ -1,192 +1,212 @@
+<!-- HERO -->
+<section class="hero">
+  <!-- overlay global (plus premium) -->
+  <div class="hero-overlay"></div>
 
- <script>
-	import { onMount } from 'svelte';
-	import { PUBLIC_API_URL2 } from '$env/static/public';
-	 
+  <div class="hero-inner">
+    <!-- Eyebrow (sur-titre) -->
+    <p class="hero-eyebrow">Location premium • Toulon / Var</p>
 
+    <!-- TON TITRE DOUBLE (inchangé) -->
+    <div class="titre-wrapper">
+      <h1 class="titre-stroke">Free Torque</h1>
+      <h1 class="titre-fill">Free Torque</h1>
+    </div>
 
-	const baseURL =  PUBLIC_API_URL2;
+    <!-- Promesse claire -->
+    <p class="hero-tagline">Louez une moto de caractère. Vivez le Sud autrement.</p>
+    <p class="hero-promise">Harley-Davidson • Indian • Triumph • Ducati • Vespa</p>
 
-	// let titreImage = "http://localhost:5001/uploads/Ride-Your-Dream-Custom-Motorcyle-F.webp";
+    <!-- CTA -->
+    <div class="hero-cta">
+      <a class="btn primary" href="/catalogue">Voir les motos</a>
+      <a class="btn outline" href="/tarifs">Nos tarifs</a>
+    </div>
 
-	let titreImage = `${baseURL}/uploads/Free Torque.png`;
-	let title = '';
-	let description = '';
+    <!-- micro copy (rassurance) -->
+    <p class="hero-micro">
+      Réservation simple • Assistance • Options casque/gants • Départ Toulon
+    </p>
 
-	onMount(async () => {
-		try {
-			// const res = await fetch('http://localhost:5001/api/pages/home');
-			const res = await fetch(`${baseURL}/api/pages/home`);
-			const data = await res.json();
-			title = data.title;
-			description = data.description;
+    <!-- Proof / stats -->
+    <div class="hero-proof">
+      <div class="proof-item">
+        <span class="proof-value">24/7</span>
+        <span class="proof-label">Assistance</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-value">Premium</span>
+        <span class="proof-label">Motos sélectionnées</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-value">Toulon</span>
+        <span class="proof-label">Départ / retour</span>
+      </div>
+    </div>
 
-			// document.body.style.backgroundImage = "url('http://localhost:5001/uploads/home2.webp')";
-
-			document.body.style.backgroundImage = `url('${baseURL}/uploads/home2.webp')`;
-			document.body.style.backgroundSize = 'cover';
-			document.body.style.backgroundRepeat = 'no-repeat';
-			document.body.style.backgroundPosition = 'center';
-			document.body.style.backgroundAttachment = 'fixed';
-
-			document.body.style.backgroundColor = 'transparent';
-		} catch (err) {
-			console.error("Erreur chargement page home :", err);
-		}
-	});
+    <!-- Meta -->
+    <div class="hero-meta">
+      <span>📍 Toulon • Var • PACA</span>
+      <span>🕘 Lun–Sam 9h–19h</span>
+    </div>
+  </div>
+</section>
+<script>
+  import HowItWorks from '$lib/components/HowItWorks.svelte';
 </script>
 
-<!-- TITRE IMAGE -->
-<!-- TITRE CHICANOS SUPERPOSÉ -->
-<div class="titre-wrapper">
-	<h1 class="titre-stroke">Free Torque</h1>
-	<h1 class="titre-fill"> Free Torque</h1>
-</div>
-
-
-<!-- CONTENU ENCADRÉ + BLUR -->
-<div class="content-blur-texte">
-	{#if title}
-		<h1>{title}</h1>
-	{/if}
-	{#if description}
-		<p>{description}</p>
-	{/if}
-
-	<button on:click={() => window.location.href = '/catalogue'}>
-		Explorer notre catalogue
-	</button>
-
-	<section class="text-content">
-	  <h2>Présentation Officielle de Free Torque</h2>
-	  <p class="slogan">Liberté, découverte et culture motarde</p>
-
-	  <h3>🏍️ Notre histoire</h3>
-	  <p>
-		Free Torque est né d’une frustration personnelle : celle de ne pas pouvoir rouler à moto dans les plus beaux paysages du Sud pendant les vacances
-		Cette sensation de manque, entre routes côtières, virages en montagne et villages pittoresques, a donné naissance à une idée simple mais forte : offrir à chacun la possibilité de vivre la route
-		C’est ainsi qu’est née Ride Your Dreams Custom Motorcycles, une entreprise basée à Toulon, dans le Var, dédiée à la location de motos exclusives, à la customisation, à l’organisation de balades sur mesure, et bien plus encore
-	  </p>
-
-	  <h3>🚀 Notre mission</h3>
-	  <p>
-		Chez Free Torque, nous ne nous contentons pas de louer des motos
-		Nous proposons une expérience complète : un art de vivre, une connexion avec le territoire, une immersion culturelle et humaine
-		Nous voulons rendre à la moto ce qu’elle nous a offert : de la liberté, de l’estime, des rencontres, un chemin de vie
-	  </p>
-
-	  <h3>🔧 Ce que nous faisons</h3>
-	  <p><strong>🏍️ Location de motos premium</strong> – Harley-Davidson, Triumph, Vespa, Ducati… Nous sélectionnons des motos iconiques, puissantes, élégantes, à fort caractère. Pour un jour, un week-end ou plus, chaque client repart avec des sensations uniques et des souvenirs forts</p>
-	  <p><strong>🛠️ Customisation & préparation</strong> – Nous préparons les motos selon les rêves et les usages :
-	  customisation esthétique, optimisation moteur, lignes d’échappement responsables, solutions techniques réduisant les émissions polluantes
-	  Notre philosophie : préserver l’émotion de conduite, tout en respectant notre environnement</p>
-	  <p><strong>🌍 Balades et expériences exclusives</strong> – Nous organisons des circuits personnalisés à travers le Var, la région PACA, la Corse, et bientôt le Maroc
-	  Ces balades mettent en avant le terroir, les producteurs locaux, les lieux authentiques, et créent un vrai lien entre les motards et le territoire</p>
-
-	  <h3>🌟 Un lieu de vie motard unique</h3>
-	  <p>
-		Notre local à Toulon est bien plus qu’un point de départ pour des balades
-		✂️ Barber shop & studio tatouage – Un espace dédié au style, à l’expression de soi, et à l’art motard
-		Nous accueillons régulièrement des tatoueurs invités, venus de toute la France et de l’étranger, autour d’événements moto et culturels
-	  </p>
-
-	  <h3>🎹 Radio / Podcast RYD</h3>
-	  <p>
-		Nous lançons prochainement une plateforme dédiée aux voix du monde motard
-		Des invités issus des compétitions, de l’aventure, de la préparation ou de la création partageront leur parcours, leurs émotions, leurs histoires
-		Un espace de témoignages vrais, inspirants, humains
-	  </p>
-
-	  <h3>🌟 Notre vision</h3>
-	  <p>
-		Chaque moto raconte une histoire. Notre rôle est de permettre aux gens d’écrire la leur
-		Nous voulons faire de Ride Your Dreams un référent lifestyle dans le monde du deux-roues, mêlant prestige, culture, territoire et communauté
-		Notre ambition : créer un lieu où la passion prend vie, où les routes deviennent des scènes, et où chaque rencontre devient un souvenir
-	  </p>
-
-	  <h3>🤝 Nos partenaires & soutiens</h3>
-	  <p>
-		RCT – Rugby Club Toulonnais (en cours de demande)<br />
-		Sollen Design<br />
-		Le D’Artagnan – Auberge de Paris<br />
-		Dockside Toulon & Dockside Comedy Club<br />
-		Comité Miss Bordeaux<br />
-		The View Agency / The Studio<br />
-		L'école IBSM Bordeaux<br />
-		La Méridionale – Ferry pour la Corse & le Maroc<br />
-		Et de nombreux artisans, créateurs, producteurs et passionnés locaux
-	  </p>
-
-	  <h3>🏎️ Notre slogan signature</h3>
-	  <p class="italic">
-		Ride Your Dreams, c’est bien plus qu’une moto : c’est la liberté, la découverte, et une immersion culturelle sur les routes du Sud
-		Chaque balade est une aventure humaine, entre prestige, passion et art de vivre motard
-	  </p>
-	</section>
-</div>
+<HowItWorks />
 
 <style>
-	 
- 
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 1rem 3.5rem;
+  }
 
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(900px 500px at 50% 35%, rgba(212,175,55,0.12), transparent 60%),
+      linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.65));
+    z-index: 0;
+  }
 
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 980px;
+    text-align: center;
+    padding: 2.4rem 2rem;
+    border-radius: 18px;
+    backdrop-filter: blur(14px);
+    background: rgba(0,0,0,0.52);
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212,175,55,0.18);
+  }
 
-	.content-blur-texte {
-		max-width: 950px;
-		margin: 0 auto 5rem auto;
-		padding: 2rem;
-		backdrop-filter: blur(10px);
-		background-color: rgba(0, 0, 0, 0.6);
-		border-radius: 16px;
-		color: #D4AF37;
-		box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-	}
+  .hero-eyebrow {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: rgba(212,175,55,0.9);
+  }
 
-	h1, h2, h3 {
-		text-shadow: 1px 1px 3px #000;
-		font-weight: bold;
-	}
+  .hero-tagline {
+    margin-top: 1.2rem;
+    font-size: 1.55rem;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 1px 1px 2px #000;
+    line-height: 1.35;
+  }
 
-	h1 {
-		font-size: 4.5rem;
-		margin-bottom: 1rem;
-	}
+  .hero-promise {
+    margin-top: .7rem;
+    font-size: .95rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(212,175,55,0.95);
+  }
 
-	.slogan {
-		font-size: 1.2rem;
-		margin-bottom: 2rem;
-		color: #FFD700;
-		text-shadow: 1px 1px 2px #000;
-	}
+  .hero-cta {
+    margin-top: 2.1rem;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
 
-	.text-content p, ul, li {
-		font-size: 1.1rem;
-		line-height: 1.8;
-		margin-bottom: 1rem;
-		text-shadow: 1px 1px 2px #000;
-	}
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: .95rem;
+    transition: .2s ease;
+    text-decoration: none;
+  }
 
-	.text-content ul {
-		list-style: disc;
-		padding-left: 1.5rem;
-	}
+  .btn.primary {
+    background: #D4AF37;
+    color: #000;
+  }
+  .btn.primary:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 0 14px rgba(212,175,55,0.35);
+    transform: translateY(-1px);
+  }
 
-	button {
-		background-color: #D4AF37;
-		color: white;
-		border: none;
-		padding: 12px 24px;
-		font-size: 1rem;
-		font-weight: bold;
-		border-radius: 6px;
-		cursor: pointer;
-		margin-bottom: 2rem;
-		transition: all 0.3s ease-in-out;
-	}
+  .btn.outline {
+    border: 1px solid rgba(212,175,55,0.85);
+    color: #D4AF37;
+    background: transparent;
+  }
+  .btn.outline:hover {
+    background: rgba(212,175,55,0.12);
+    transform: translateY(-1px);
+  }
 
-	button:hover {
-		background-color: #D4AF37;
-		color: #000;
-		box-shadow: 0 0 10px #D4AF37;
-	}
+  .hero-micro {
+    margin-top: 1.2rem;
+    font-size: .95rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .hero-proof {
+    margin: 2rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 760px;
+  }
+
+  .proof-item {
+    padding: 14px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(212,175,55,0.14);
+    background: rgba(0,0,0,0.35);
+  }
+
+  .proof-value {
+    display: block;
+    font-weight: 900;
+    letter-spacing: .06em;
+    color: rgba(212,175,55,0.95);
+    font-size: 1.05rem;
+  }
+
+  .proof-label {
+    display: block;
+    margin-top: 6px;
+    font-size: .9rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .hero-meta {
+    margin-top: 1.6rem;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    color: rgba(255,255,255,0.6);
+    font-size: .95rem;
+  }
+
+  @media (max-width: 720px) {
+    .hero-inner { padding: 2rem 1.3rem; }
+    .hero-proof { grid-template-columns: 1fr; }
+    .hero-tagline { font-size: 1.25rem; }
+    .hero-promise { letter-spacing: .14em; }
+  }
 </style>

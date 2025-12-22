@@ -5,15 +5,18 @@
   font-style: normal;
 }
 
+/* =========================
+   TITRE DOUBLE (stroke/fill)
+   ========================= */
 .titre-wrapper {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 3rem auto 2rem auto;
-	width: fit-content;
-	max-width: 90vw;
-	text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto 2rem auto;
+  width: fit-content;
+  max-width: 90vw;
+  text-align: center;
 }
 
 .titre-stroke {
@@ -24,6 +27,9 @@
   color: transparent;
   text-shadow: 0 0 3px rgba(40, 42, 48, 0.62);
   z-index: 1;
+
+  /* BONUS: vrai contour (tu peux enlever si tu veux) */
+  -webkit-text-stroke: 2px rgba(4, 29, 128, 0.62);
 }
 
 .titre-fill {
@@ -33,34 +39,38 @@
   z-index: 2;
 }
 
-
-
-:global(main) {
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* =========================
+   GLOBAL LAYOUT FIX
+   (IMPORTANT : on ne centre PAS tout le site)
+   ========================= */
+:global(body) {
+  margin: 0;
+  padding-top: 72px; /* hauteur du header */
+  overflow-x: hidden;
 }
 
-header, main, footer {
+/* IMPORTANT : main doit rester neutre,
+   sinon toutes tes pages seront centrées */
+:global(main) {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+/* Pour éviter les “bugs de z-index” sur fond image */
+header,
+main,
+footer {
   position: relative;
   z-index: 1;
 }
 
-main {
-  flex: 1;
-  margin: 0;
-  padding: 0;
-  color: white;
-}
-
-body {
-  overflow-x: hidden;
-}
+/* =========================
+   TITRES UNIVERSELS (si tu les utilises)
+   ========================= */
 .titre-chicanos {
   font-family: 'Chicanos', sans-serif;
-  font-size: 5.5rem; /* 👈 plus gros qu'avant pour plus d’impact */
+  font-size: 5.5rem;
   line-height: 1.2;
   color: #FFD700;
   text-shadow: 2px 2px 4px #000;
@@ -69,7 +79,6 @@ body {
   padding: 0 1rem;
 }
 
-/* 🌟 Titres universels */
 .titre-section {
   display: flex;
   justify-content: center;
@@ -79,7 +88,7 @@ body {
 }
 
 .titre {
-  width: clamp(320px, 70vw, 320px); /* responsive */
+  width: clamp(320px, 70vw, 320px);
   height: auto;
   object-fit: contain;
   display: block;

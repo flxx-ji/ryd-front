@@ -132,31 +132,71 @@
     <p style="text-align: center; color: red;">Moto introuvable</p>
   {/if}
   
-  <style>
-    .reservation {
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-      background: #f8f8f8;
-      border-radius: 10px;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-  
-    input {
-      padding: 8px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-  
-    button {
-      background-color: #D4AF37;
-      color: white;
-      font-weight: bold;
-      padding: 12px;
-  }
-  </style>
+ <style>
+  .reservation {
+  padding: 2rem;
+  max-width: 720px;
+  margin: 4rem auto;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(212,175,55,0.2);
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  color: white;
+}
+
+.reservation h1 {
+  text-align: center;
+  color: #D4AF37;
+  margin-bottom: 1rem;
+}
+
+.reservation p {
+  text-align: center;
+  color: rgba(255,255,255,0.75);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 1.5rem;
+}
+
+label {
+  font-size: 0.9rem;
+  color: rgba(212,175,55,0.85);
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(212,175,55,0.25);
+  background: rgba(0,0,0,0.5);
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border-color: #D4AF37;
+  box-shadow: 0 0 6px rgba(212,175,55,0.4);
+}
+
+button {
+  margin-top: 1rem;
+  background-color: #D4AF37;
+  color: black;
+  font-weight: bold;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+button:hover {
+  box-shadow: 0 0 14px rgba(212,175,55,0.45);
+}
+
+ </style>
