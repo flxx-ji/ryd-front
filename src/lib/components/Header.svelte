@@ -82,7 +82,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  box-sizing: border-box;
+  padding-right: 2.2rem;
   color: white;
   z-index: 1000;
 
@@ -138,6 +139,7 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.85rem;
+    white-space: nowrap;
   }
 
   .cta-reserver:hover {
