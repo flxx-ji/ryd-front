@@ -8,6 +8,8 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { PUBLIC_API_URL2 } from '$env/static/public';
+	import { browser } from '$app/environment';
+
 	export const prerender = false;
 	 
 
@@ -18,6 +20,8 @@
 	let showLayout = true;
 
 	onMount(() => {
+
+		if (!browser) return;
 		unsubscribe = page.subscribe(($page) => {
 			const path = $page.url.pathname;
 
