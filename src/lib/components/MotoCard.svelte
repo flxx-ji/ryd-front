@@ -1,28 +1,22 @@
 <script>
-  
+  import { goto } from '$app/navigation';
+  import { PUBLIC_API_URL2 } from '$env/static/public';
 
   export let moto;
   let isHovered = false;
-  import { PUBLIC_API_URL2 } from '$env/static/public';
 
-  // const baseURL = 'http://localhost:5001';
   const baseURL = PUBLIC_API_URL2;
 
-
-  // 🔧 Corrige le chemin si besoin
   const imageURL = moto.image?.startsWith('/uploads')
     ? `${baseURL}${moto.image}`
     : moto.image;
-
-  console.log("💬 Moto chargée :", moto);
 </script>
 
 <div
   class="moto-card"
   style={`background-image: url("${imageURL}")`}
-
-  on:mouseover={() => isHovered = true}
-  on:mouseleave={() => isHovered = false}
+  on:mouseenter={() => (isHovered = true)}
+  on:mouseleave={() => (isHovered = false)}
 >
   <div class="moto-info">
     <h3>{moto.nom}</h3>
@@ -32,9 +26,7 @@
 
     {#if isHovered}
       <div class="button-container">
-        <button on:click={() => window.location.href = `/moto/${moto._id}`}>Voir plus</button>
-        <!-- <button on:click={() => window.location.href = `/under-construction` }>Réserver</button> -->
-
+        <button type="button" on:click={() => goto(`/moto/${moto._id}`)}>Voir plus</button>
         <a class="btn" href={`/reservation/${moto._id}`}>Réserver</a>
       </div>
     {/if}
@@ -70,20 +62,27 @@
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    align-items: center;
   }
 
-  button {
+  button,
+  .btn {
     background-color: #D4AF37;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  button:hover {
-	background-color: #D4AF37;
-	color: #000;
-	box-shadow: 0 0 10px #D4AF37;
-}
+  button:hover,
+  .btn:hover {
+    background-color: #D4AF37;
+    color: #000;
+    box-shadow: 0 0 10px #D4AF37;
+  }
 </style>

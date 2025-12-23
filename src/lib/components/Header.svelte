@@ -1,6 +1,6 @@
 <script>
   import { page } from '$app/stores';
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount } from 'svelte';
 
   let menuOpen = false;
   let scrolled = false;
@@ -23,10 +23,8 @@
   onMount(() => {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-  });
 
-  onDestroy(() => {
-    window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   });
 </script>
 
@@ -41,17 +39,13 @@
     </button>
   {/if}
 
-  <!-- Desktop Navigation -->
   <nav class="nav-desktop" aria-label="Navigation principale">
     {#each links as link}
       <a class:selected={current === link.href} href={link.href}>{link.name}</a>
     {/each}
-
-    <!-- CTA Réserver (desktop) -->
     <a class="cta-reserver" href="/catalogue">Réserver</a>
   </nav>
 
-  <!-- Mobile NAVIGATION fullscreen -->
   <div class="mobile-nav" class:open={menuOpen} aria-hidden={!menuOpen}>
     <button class="close-button" on:click={() => (menuOpen = false)} aria-label="Fermer le menu">
       &times;
@@ -68,7 +62,6 @@
         </a>
       {/each}
 
-      <!-- CTA Réserver (mobile) -->
       <a class="cta-reserver mobile" href="/catalogue" on:click={() => (menuOpen = false)}>
         Réserver
       </a>
@@ -89,16 +82,14 @@
     color: white;
     z-index: 1000;
 
-    /* état initial (top): transparent */
     background: rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid transparent;
     transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
     backdrop-filter: none;
   }
 
-  /* au scroll */
   .main-header.scrolled {
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(10, 25, 60, 0.70); /* bleu sombre au scroll */
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.18);
   }

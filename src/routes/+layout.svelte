@@ -97,7 +97,7 @@
 	main {
 		flex: 1;
 		width: 100%;
-		padding: 20px;
+		padding-top: 90px;
 		box-sizing: border-box;
 		color: #D4AF37;
 		text-align: center;
