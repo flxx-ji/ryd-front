@@ -1,3 +1,9 @@
+<script>
+  import HowItWorks from '$lib/components/HowItWorks.svelte';
+</script>
+
+
+
 <!-- HERO -->
 <section class="hero">
   <!-- overlay global (plus premium) -->
@@ -51,9 +57,7 @@
     </div>
   </div>
 </section>
-<script>
-  import HowItWorks from '$lib/components/HowItWorks.svelte';
-</script>
+
 
 <HowItWorks />
 
