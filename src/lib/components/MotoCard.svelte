@@ -1,9 +1,8 @@
 <script>
-  import { goto } from '$app/navigation';
-  import { PUBLIC_API_URL2 } from '$env/static/public';
-
   export let moto;
   let isHovered = false;
+
+  import { PUBLIC_API_URL2 } from '$env/static/public';
 
   const baseURL = PUBLIC_API_URL2;
 
@@ -12,77 +11,150 @@
     : moto.image;
 </script>
 
-<div
-  class="moto-card"
+<article
+  class="card"
   style={`background-image: url("${imageURL}")`}
   on:mouseenter={() => (isHovered = true)}
   on:mouseleave={() => (isHovered = false)}
 >
-  <div class="moto-info">
-    <h3>{moto.nom}</h3>
-    <p>{moto.marque} - {moto.modele}</p>
-    <p>{moto.couleur} - {moto.annee}</p>
-    <p>{moto.tarifs.unJour} € / jour</p>
+  <div class="shade"></div>
 
-    {#if isHovered}
-      <div class="button-container">
-        <button type="button" on:click={() => goto(`/moto/${moto._id}`)}>Voir plus</button>
-        <a class="btn" href={`/reservation/${moto._id}`}>Réserver</a>
+  <div class="content">
+    <div class="top">
+      <h3 class="name">{moto.nom}</h3>
+      <p class="meta">{moto.marque} • {moto.modele}</p>
+      <p class="meta">{moto.couleur} • {moto.annee}</p>
+    </div>
+
+    <div class="bottom">
+      <p class="price">{moto.tarifs?.unJour}€ <span>/ jour</span></p>
+
+      <div class="actions" class:show={isHovered}>
+        <a class="btn ghost" href={`/moto/${moto._id}`}>Voir plus</a>
+        <a class="btn gold" href={`/reservation/${moto._id}`}>Réserver</a>
       </div>
-    {/if}
+    </div>
   </div>
-</div>
+</article>
 
 <style>
-  .moto-card {
+  .card {
     position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 240px;
+    border-radius: 18px;
+    overflow: hidden;
     background-size: cover;
     background-position: center;
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    transform: translateZ(0);
+    border: 1px solid rgba(212,175,55,0.18);
+    box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    transition: transform .25s ease, box-shadow .25s ease;
   }
 
-  .moto-card:hover {
-    transform: scale(1.1);
+  .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 28px 70px rgba(0,0,0,.55);
   }
 
-  .moto-info {
+  .shade {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    color: white;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    border-radius: 5px;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,.25) 0%,
+      rgba(0,0,0,.65) 55%,
+      rgba(0,0,0,.85) 100%
+    );
   }
 
-  .button-container {
+  .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    z-index: 2;
+  }
+
+  .name {
+    margin: 0;
+    color: rgba(255,255,255,.92);
+    font-size: 1.15rem;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .meta {
+    margin: 6px 0 0;
+    color: rgba(255,255,255,.72);
+    font-size: .9rem;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .price {
+    margin: 0;
+    color: #D4AF37;
+    font-weight: 900;
+    font-size: 1.15rem;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .price span {
+    color: rgba(255,255,255,.65);
+    font-weight: 600;
+    font-size: .9rem;
+  }
+
+  .actions {
+    margin-top: 12px;
     display: flex;
     gap: 10px;
-    margin-top: 10px;
-    align-items: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all .2s ease;
+    pointer-events: none;
   }
 
-  button,
+  .actions.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
   .btn {
-    background-color: #D4AF37;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    font-size: .8rem;
+    border: 1px solid rgba(212,175,55,0.25);
   }
 
-  button:hover,
-  .btn:hover {
-    background-color: #D4AF37;
+  .btn.ghost {
+    background: rgba(0,0,0,.45);
+    color: rgba(255,255,255,.9);
+  }
+
+  .btn.ghost:hover {
+    box-shadow: 0 0 12px rgba(212,175,55,.25);
+    color: #D4AF37;
+  }
+
+  .btn.gold {
+    background: #D4AF37;
     color: #000;
-    box-shadow: 0 0 10px #D4AF37;
+  }
+
+  .btn.gold:hover {
+    box-shadow: 0 0 16px rgba(212,175,55,.35);
+    filter: brightness(1.03);
   }
 </style>

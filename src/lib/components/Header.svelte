@@ -70,6 +70,7 @@
 </header>
 
 <style>
+  
    .main-header {
   position: fixed;
   top: 0;
@@ -78,12 +79,12 @@
 
   height: 72px;              /* ✅ clé : hauteur fixe */
   padding: 0 1.4rem;         /* ✅ on enlève le padding vertical */
-
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   padding-right: 2.2rem;
+  padding-bottom: 0.4rem;
   color: white;
   z-index: 1000;
 

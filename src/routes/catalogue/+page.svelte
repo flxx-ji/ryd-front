@@ -18,24 +18,32 @@
 	});
 </script>
 
-<!-- ✅ Titre stylisé identique à Home -->
+ 
+<!-- ✅ Liste des motos -->
 <TitreChicanos text="Catalogue" />
 
-<!-- ✅ Liste des motos -->
-<div class="catalogue">
-	{#each motos as moto}
-		<MotoCard {moto} />
-	{/each}
-</div>
+<section class="catalogue-wrap">
+  <div class="catalogue">
+    {#each motos as moto}
+      <MotoCard {moto} />
+    {/each}
+  </div>
+</section>
 
 <style>
-	.catalogue {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		justify-items: center;
-		gap: 2rem;
-		width: 100%;
-		max-width: 1200px;
-		margin: 0 auto;
-	}
+  .catalogue-wrap {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .catalogue {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    justify-items: center;
+  }
 </style>
+
