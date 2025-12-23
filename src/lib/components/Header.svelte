@@ -70,23 +70,28 @@
 </header>
 
 <style>
-  .main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.4rem;
-    color: white;
-    z-index: 1000;
+   .main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 
-    background: rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid transparent;
-    transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
-    backdrop-filter: none;
-  }
+  height: 72px;              /* ✅ clé : hauteur fixe */
+  padding: 0 1.4rem;         /* ✅ on enlève le padding vertical */
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: white;
+  z-index: 1000;
+
+  background: rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+  backdrop-filter: none;
+}
+
 
   .main-header.scrolled {
     background: rgba(10, 25, 60, 0.70); /* bleu sombre au scroll */
