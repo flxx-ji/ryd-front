@@ -157,4 +157,13 @@
     box-shadow: 0 0 16px rgba(212,175,55,.35);
     filter: brightness(1.03);
   }
+
+  @media (max-width: 768px) {
+  .actions {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
 </style>
