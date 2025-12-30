@@ -1,40 +1,35 @@
 <script>
+  import TitreChicanos from '$lib/components/TitreChicanos.svelte';
   import HowItWorks from '$lib/components/HowItWorks.svelte';
+  
 </script>
 
 
 
 <!-- HERO -->
 <section class="hero">
-  <!-- overlay global (plus premium) -->
   <div class="hero-overlay"></div>
 
+  <!-- ✅ Logo dans le flux, pas en absolute -->
+  <div class="hero-logo">
+    <TitreChicanos text="Free Torque" />
+  </div>
+
   <div class="hero-inner">
-    <!-- Eyebrow (sur-titre) -->
     <p class="hero-eyebrow">Location premium • Toulon / Var</p>
 
-    <!-- TON TITRE DOUBLE (inchangé) -->
-    <div class="titre-wrapper">
-      <h1 class="titre-stroke">Free Torque</h1>
-      <h1 class="titre-fill">Free Torque</h1>
-    </div>
-
-    <!-- Promesse claire -->
     <p class="hero-tagline">Louez une moto de caractère. Vivez le Sud autrement.</p>
     <p class="hero-promise">Harley-Davidson • Indian • Triumph • Ducati • Vespa</p>
 
-    <!-- CTA -->
     <div class="hero-cta">
       <a class="btn primary" href="/catalogue">Voir les motos</a>
       <a class="btn outline" href="/tarifs">Nos tarifs</a>
     </div>
 
-    <!-- micro copy (rassurance) -->
     <p class="hero-micro">
       Réservation simple • Assistance • Options casque/gants • Départ Toulon
     </p>
 
-    <!-- Proof / stats -->
     <div class="hero-proof">
       <div class="proof-item">
         <span class="proof-value">24/7</span>
@@ -50,7 +45,6 @@
       </div>
     </div>
 
-    <!-- Meta -->
     <div class="hero-meta">
       <span>📍 Toulon • Var • PACA</span>
       <span>🕘 Lun–Sam 9h–19h</span>
@@ -58,41 +52,66 @@
   </div>
 </section>
 
-
 <HowItWorks />
+
+ 
 
 <style>
   .hero {
-    position: relative;
-    min-height: calc(100vh - 120px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 7rem 1rem 3.5rem;
-  }
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* width: 100%; */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 1.5rem 0 3.5rem;
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(900px 500px at 50% 35%, rgba(212,175,55,0.12), transparent 60%),
-      linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.65));
-    z-index: 0;
-  }
+   
+  justify-content: flex-start;   
+ 
+  padding-right: 1rem;
+   
+  overflow: hidden;
+  gap: 1.25rem;
+}
 
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 980px;
-    text-align: center;
-    padding: 2.4rem 2rem;
-    border-radius: 18px;
-    backdrop-filter: blur(14px);
-    background: rgba(0,0,0,0.52);
-    box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(212,175,55,0.18);
-  }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(900px 500px at 50% 35%, rgba(212,175,55,0.12), transparent 60%),
+    linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.65));
+    pointer-events: none;
+}
+.hero-logo{
+  position: relative;       
+  z-index: 2;
+  margin-top: 0.5rem;       
+  pointer-events: none;    
+}
+ 
+
+
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100% - 2rem));
+  max-width: 980px;
+  text-align: center;
+  margin-inline: auto;
+  margin-top: 0.5rem;
+  left: 0.4rem;
+  padding: 2.4rem 2rem;
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  background: rgba(0,0,0,0.52);
+  box-shadow: 0 0 35px rgba(0,0,0,0.6);
+  border: 1px solid rgba(212,175,55,0.18);
+}
 
   .hero-eyebrow {
     display: inline-block;
@@ -212,5 +231,10 @@
     .hero-proof { grid-template-columns: 1fr; }
     .hero-tagline { font-size: 1.25rem; }
     .hero-promise { letter-spacing: .14em; }
+    .hero-logo {
+      top: 4rem;
+    }
   }
+   
+
 </style>

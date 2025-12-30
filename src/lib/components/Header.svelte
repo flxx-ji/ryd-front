@@ -72,13 +72,11 @@
   
    .main-header {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 5px;
+  left: 10px;
   width: 100%;
 
-  height: 72px;              /* ✅ clé : hauteur fixe */
-  padding: 0 1.4rem;         /* ✅ on enlève le padding vertical */
-  display: flex;
+   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
@@ -130,6 +128,7 @@
   }
 
   .cta-reserver {
+    margin-top: 5px;
     margin-left: 0.6rem;
     background: #D4AF37;
     color: #000 !important;
@@ -220,6 +219,10 @@
     }
     .menu-toggle {
       display: block;
+    }
+
+    .main-header {
+      left:20px;
     }
   }
 </style>

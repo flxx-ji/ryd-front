@@ -61,6 +61,7 @@
     backdrop-filter: blur(8px);
     border-top: 1px solid rgba(212,175,55,0.15);
     color: rgba(255,255,255,0.75);
+    width: 100%;
   }
 
   .footer-inner {

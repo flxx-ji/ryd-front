@@ -21,7 +21,8 @@
 
   <div class="content">
     <div class="top">
-      <h3 class="name">{moto.nom}</h3>
+      <h3 class="name">{moto.modele}</h3>
+
       <p class="meta">{moto.marque} • {moto.modele}</p>
       <p class="meta">{moto.couleur} • {moto.annee}</p>
     </div>

@@ -5,6 +5,27 @@
   font-style: normal;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+body {
+  overflow-x: hidden;
+}
+
+main {
+   display: block;
+   margin: 0;
+  padding: 0;
+}
+
 /* =========================
    TITRE DOUBLE (stroke/fill)
    ========================= */
@@ -43,27 +64,29 @@
    GLOBAL LAYOUT FIX
    (IMPORTANT : on ne centre PAS tout le site)
    ========================= */
-:global(body) {
+/* :global(body) {
   margin: 0;
-  padding-top: 72px; /* hauteur du header */
   overflow-x: hidden;
-}
+} */
 
 /* IMPORTANT : main doit rester neutre,
    sinon toutes tes pages seront centrées */
-:global(main) {
+/* :global(main) {
   margin: 0;
   padding: 0;
   display: block;
+} */
+
+  
+main, footer { position: relative; z-index: 1; }
+
+
+:root{
+  --header-height: 72px;  
+  --hero-offset: 1.5rem;
 }
 
-/* Pour éviter les “bugs de z-index” sur fond image */
-header,
-main,
-footer {
-  position: relative;
-  z-index: 1;
-}
+ 
 
 /* =========================
    TITRES UNIVERSELS (si tu les utilises)

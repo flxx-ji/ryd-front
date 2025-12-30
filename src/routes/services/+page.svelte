@@ -60,7 +60,7 @@ Pneus homologués route, adaptés à votre style de conduite.`
   .wrap {
     width: min(1100px, 100%);
     margin: 0 auto;
-    padding: 0 1rem 4rem;
+    padding: 2rem 1rem 4rem;
   }
 
   .intro {
