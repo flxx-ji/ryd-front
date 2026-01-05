@@ -41,11 +41,11 @@
         let backgroundUrl;
 
         switch (path) {
-          case '/': backgroundUrl = `url('${baseURL}/uploads/home2.webp')`; break;
-          case '/services': backgroundUrl = `url('${baseURL}/uploads/services2.webp')`; break;
-          case '/catalogue': backgroundUrl = `url('${baseURL}/uploads/catalogue2.webp')`; break;
-          case '/custom': backgroundUrl = `url('${baseURL}/uploads/garageCustom.webp')`; break;
-          case '/apropos': backgroundUrl = `url('${baseURL}/uploads/apropos2.webp')`; break;
+          case '/': backgroundUrl = `url('${baseURL}/uploads/home.webp')`; break;
+          case '/services': backgroundUrl = `url('${baseURL}/uploads/services.webp')`; break;
+          case '/catalogue': backgroundUrl = `url('${baseURL}/uploads/catalogue.webp')`; break;
+          case '/custom': backgroundUrl = `url('${baseURL}/uploads/custom.webp')`; break;
+          case '/apropos': backgroundUrl = `url('${baseURL}/uploads/apropos.webp')`; break;
           default: backgroundUrl = 'none';
         }
 
