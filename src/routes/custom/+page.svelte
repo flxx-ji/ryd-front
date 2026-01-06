@@ -9,7 +9,7 @@
     // Sécurité SSR
     if (typeof document === 'undefined') return;
 
-    document.body.style.backgroundImage = `url('${baseURL}/uploads/garageCustom.webp')`;
+    document.body.style.backgroundImage = `url('${baseURL}/uploads/custom.webp')`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';

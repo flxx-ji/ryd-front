@@ -6,7 +6,7 @@
   const baseURL = PUBLIC_API_URL2;
 
   onMount(() => {
-    document.body.style.backgroundImage = `url('${baseURL}/uploads/services2.webp')`;
+    document.body.style.backgroundImage = `url('${baseURL}/uploads/services.webp')`;
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';
