@@ -7,7 +7,7 @@
   import { page } from '$app/stores';
   import { browser } from '$app/environment';
 
-  export const prerender = false;
+  
 
   let unsubscribe;
   let showLayout = true;
