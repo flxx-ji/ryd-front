@@ -29,7 +29,11 @@
 
 <header class="main-header" class:scrolled>
   <div class="left">
-    <a class="logo" href="/">Free Torque</a>
+     <a href="/" class="logo" aria-label="Accueil">
+  <img src="/favicon.jpg" alt="Free Torque" class="logo-img" />
+</a>
+
+
   </div>
 
   {#if !menuOpen}
@@ -72,8 +76,9 @@
   
    .main-header {
   position: fixed;
-  top: 5px;
-  left: 10px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   width: 100%;
 
    display: flex;
@@ -105,7 +110,11 @@
     text-decoration: none;
     letter-spacing: 0.04em;
   }
-
+  .logo-img {
+    height: 64px;
+    width: 64px;
+    object-fit: contain;
+  }
   .nav-desktop {
     display: flex;
     align-items: center;

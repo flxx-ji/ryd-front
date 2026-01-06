@@ -1,33 +1,8 @@
-// +page.js
-// Ce fichier permet de faire le fetch des motos côté serveur (SSR)
-// et injecter les données dans +page.svelte via la prop "data"
-
-import { PUBLIC_API_URL2 } from '$env/static/public';
+// src/routes/catalogue/+page.js
+export const ssr = false;
 export const prerender = false;
 
-
-export async function load() {
-	try {
-		const baseURL = PUBLIC_API_URL2;
-
-		// 🔄 Appel API pour récupérer les motos
-		const res = await fetch(`${baseURL}/api/motos`);
-
-		// 📦 On vérifie que tout est OK
-		if (!res.ok) {
-			console.error('Erreur API:', res.statusText);
-			throw new Error('Erreur serveur - impossible de récupérer les motos');
-		}
-
-		const motos = await res.json();
-
-		// 🧠 On retourne les données au composant Svelte
-		return { motos };
-	} catch (error) {
-		console.error('Erreur côté serveur :', error);
-		return {
-			status: 500,
-			error: new Error('Erreur côté serveur - catalogue')
-		};
-	}
+export function load() {
+  // on laisse le client gérer le fetch (onMount dans +page.svelte)
+  return { motos: [] };
 }
