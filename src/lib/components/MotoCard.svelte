@@ -2,14 +2,19 @@
   export let moto;
   let isHovered = false;
 
-  import { PUBLIC_API_URL2 } from '$env/static/public';
+  const FALLBACK_IMG = "https://res.cloudinary.com/dlafo7ne1/image/upload/v1768322600/fordMustang69_xwuwd8.jpg"; 
+  
+  // => mets une vraie image fallback Cloudinary ici
 
-  const baseURL = PUBLIC_API_URL2;
+  const imageURL =
+    typeof moto?.image === "string" && moto.image.length
+      ? moto.image
+      : FALLBACK_IMG;
 
-  const imageURL = moto.image?.startsWith('/uploads')
-    ? `${baseURL}${moto.image}`
-    : moto.image;
+  const price = moto?.tarifs?.unJour ?? "—";
+  const id = moto?._id ?? "";
 </script>
+
 
 <article
   class="card"
@@ -28,12 +33,15 @@
     </div>
 
     <div class="bottom">
-      <p class="price">{moto.tarifs?.unJour}€ <span>/ jour</span></p>
+      <p class="price">{price}€ <span>/ jour</span></p>
 
-      <div class="actions" class:show={isHovered}>
-        <a class="btn ghost" href={`/moto/${moto._id}`}>Voir plus</a>
-        <a class="btn gold" href={`/reservation/${moto._id}`}>Réserver</a>
-      </div>
+<div class="actions" class:show={isHovered}>
+  {#if id}
+    <a class="btn ghost" href={`/moto/${id}`}>Voir plus</a>
+    <a class="btn gold" href={`/reservation/${id}`}>Réserver</a>
+  {/if}
+</div>
+
     </div>
   </div>
 </article>
