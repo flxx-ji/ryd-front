@@ -2,16 +2,8 @@
   export let moto;
   let isHovered = false;
 
-  const FALLBACK_IMG =
-  "https://res.cloudinary.com/dlafo7ne1/image/upload/f_auto,q_auto/fallback_moto";
+  const imageURL = moto.image;
 
-
-  // Image finale (Cloudinary ou fallback)
- $: imageURL =
-  typeof moto?.image === "string" &&
-  moto.image.startsWith("http")
-    ? moto.image
-    : FALLBACK_IMG;
 
 
   const price = moto?.tarifs?.unJour ?? "—";
