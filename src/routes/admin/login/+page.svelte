@@ -1,6 +1,6 @@
 <script>
-  import { adminToken } from '../../../stores/auth';
-  import { goto } from '$app/navigation';
+   
+
 
   let email = '';
   let password = '';
@@ -8,33 +8,36 @@
   let loading = false;
 
   async function login() {
-    error = '';
-    loading = true;
+  error = '';
+  loading = true;
 
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_PUBLIC_API_URL2}/api/admin/login`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        }
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Erreur de connexion');
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_PUBLIC_API_URL2}/api/admin/login`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
       }
+    );
 
-      adminToken.set(data.token);
-      goto('/admin');
-    } catch (err) {
-      error = err.message;
-    } finally {
-      loading = false;
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Erreur de connexion');
     }
+
+    // reload total → cookie lu par le serveur
+    window.location.href = '/admin';
+
+  } catch (err) {
+    error = err.message;
+  } finally {
+    loading = false;
   }
+}
+
 </script>
 
 <h1>Admin – Connexion</h1>
