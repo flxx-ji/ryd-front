@@ -7,20 +7,24 @@
   let error = '';
   let loading = false;
 
+  const API_URL = 'http://localhost:3000';
+
   async function login() {
   error = '';
   loading = true;
 
   try {
-    const res = await fetch(
-      `${import.meta.env.VITE_PUBLIC_API_URL2}/api/admin/login`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
-      }
-    );
+   const res = await fetch(
+  `${API_URL}/api/admin/login`,
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+    credentials: 'include'
+  }
+);
+
+
 
     const data = await res.json();
 
