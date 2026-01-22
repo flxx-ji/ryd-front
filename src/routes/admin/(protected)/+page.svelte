@@ -2,7 +2,10 @@
    
 </script>
 
-<h1>Dashboard</h1>
+<h1 style="color: white; font-size: 32px;">
+  ADMIN DASHBOARD OK
+</h1>
+
 
 <ul>
   <li>✔ Motos en base</li>
