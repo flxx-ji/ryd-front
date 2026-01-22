@@ -1,9 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { get } from 'svelte/store';
-  import { adminToken } from '../../../stores/auth';
-  import { goto } from '$app/navigation';
-
+  
   let motos = [];
   let loading = true;
   let error = null;
@@ -19,7 +16,7 @@
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_PUBLIC_API_URL}/api/admin/motos`,
+        `${import.meta.env.VITE_PUBLIC_API_URL2}/api/admin/motos`,
         {
           headers: {
             Authorization: `Bearer ${token}`

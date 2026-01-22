@@ -1,19 +1,5 @@
 <script>
-  import { adminToken } from '../../stores/auth';
-  import { goto } from '$app/navigation';
-  import { onDestroy } from 'svelte';  
-
-  let token;
-
-  const unsubscribe = adminToken.subscribe(value => {
-    token = value;
-    if (!token) {
-      goto('/admin/login');
-    }
-  });
-
-  // nettoyage
-  onDestroy(() => unsubscribe());
+   
 </script>
 
 <h1>Dashboard</h1>
