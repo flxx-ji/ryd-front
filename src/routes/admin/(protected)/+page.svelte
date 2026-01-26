@@ -1,3 +1,12 @@
+<script>
+  import { goto } from '$app/navigation';
+
+  // redirige vers le vrai dashboard
+  goto('/admin/motos');
+</script>
+
+
+
 <h1 class="title">Dashboard Admin</h1>
 
 <ul class="stats">
