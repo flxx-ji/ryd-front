@@ -1,29 +1,27 @@
 <script>
+  import { goto } from '$app/navigation';
+
   const API_URL = import.meta.env.VITE_PUBLIC_API_URL2;
 
   async function logout() {
     try {
       await fetch(`${API_URL}/api/admin/logout`, {
         method: 'POST',
-        credentials: 'include' // 🔑 pour le cookie
+        credentials: 'include'
       });
     } catch (e) {
-      console.error('Erreur logout', e);
+      console.error(e);
     }
 
-    // reload complet → cookie supprimé → redirect server
     window.location.href = '/admin/login';
   }
 </script>
 
-
-
-<!-- <div class="admin-layout">
+<div class="admin-layout">
   <aside class="sidebar">
     <h2>Admin</h2>
 
     <nav>
-      <a href="/admin">Dashboard</a>
       <a href="/admin/motos">Motos</a>
     </nav>
 
@@ -33,4 +31,4 @@
   <main class="content">
     <slot />
   </main>
-</div> -->
+</div>
