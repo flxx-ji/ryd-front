@@ -1,9 +1,4 @@
-<script>
-  import { goto } from '$app/navigation';
-
-  // redirige vers le vrai dashboard
-  goto('/admin/motos');
-</script>
+ 
 
 
 
