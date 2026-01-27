@@ -4,8 +4,11 @@
   const API_URL = import.meta.env.VITE_PUBLIC_API_URL2;
 
   let loading = false;
+  let uploading = false;
   let error = null;
-  let success = false;
+
+  let imageFile = null;
+  let uploadedImage = null; // { url, public_id }
 
   let moto = {
     nom: '',
@@ -19,23 +22,65 @@
     transmission: ''
   };
 
+  // 🔼 Upload image vers Cloudinary
+  async function uploadImage() {
+    if (!imageFile) return;
+
+    uploading = true;
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+      const res = await fetch(`${API_URL}/api/admin/image`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
+
+      if (!res.ok) {
+        throw new Error('Erreur upload image');
+      }
+
+      const data = await res.json();
+
+      uploadedImage = {
+        url: data.secure_url,
+        public_id: data.public_id
+      };
+
+    } catch (e) {
+      error = e.message;
+    } finally {
+      uploading = false;
+    }
+  }
+
+  // ✅ Création moto
   async function submit() {
     error = null;
     loading = true;
 
     try {
+      // 1️⃣ upload image si présente
+      if (imageFile) {
+        await uploadImage();
+      }
+
+      // 2️⃣ création moto
       const res = await fetch(`${API_URL}/api/admin/motos`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: 'include',
         body: JSON.stringify({
           nom: moto.nom,
           marque: moto.marque,
           modele: moto.modele,
           annee: Number(moto.annee),
           couleur: moto.couleur,
+          image: uploadedImage,
           tarifs: {
             unJour: Number(moto.tarifJour)
           },
@@ -47,18 +92,12 @@
         })
       });
 
-      const data = await res.json();
-
       if (!res.ok) {
+        const data = await res.json();
         throw new Error(data.message || 'Erreur création moto');
       }
 
-      success = true;
-
-      // redirection vers la liste
-      setTimeout(() => {
-        goto('/admin/motos');
-      }, 800);
+      goto('/admin/motos');
 
     } catch (e) {
       error = e.message;
@@ -72,18 +111,28 @@
 
 <form on:submit|preventDefault={submit} class="form">
 
+  <!-- IMAGE -->
+  {#if uploadedImage}
+    <img src={uploadedImage.url} alt="preview" class="preview" />
+  {/if}
+
+  <input
+    type="file"
+    accept="image/*"
+    on:change={(e) => imageFile = e.target.files[0]}
+  />
+
+  {#if uploading}
+    <p class="info">Upload image…</p>
+  {/if}
+
+  <!-- INFOS -->
   <input placeholder="Nom" bind:value={moto.nom} required />
   <input placeholder="Marque" bind:value={moto.marque} required />
   <input placeholder="Modèle" bind:value={moto.modele} required />
   <input type="number" placeholder="Année" bind:value={moto.annee} required />
   <input placeholder="Couleur" bind:value={moto.couleur} required />
-
-  <input
-    type="number"
-    placeholder="Tarif 1 jour (€)"
-    bind:value={moto.tarifJour}
-    required
-  />
+  <input type="number" placeholder="Tarif 1 jour (€)" bind:value={moto.tarifJour} required />
 
   <hr />
 
@@ -95,11 +144,7 @@
     <p class="error">{error}</p>
   {/if}
 
-  {#if success}
-    <p class="success">Moto créée ✔</p>
-  {/if}
-
-  <button disabled={loading}>
+  <button disabled={loading || uploading}>
     {loading ? 'Création…' : 'Créer la moto'}
   </button>
 </form>
@@ -107,11 +152,12 @@
 <style>
   h1 {
     color: #f5c542;
+    text-align: center;
     margin-bottom: 24px;
   }
 
   .form {
-    max-width: 420px;
+    max-width: 440px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -123,22 +169,27 @@
     font-size: 1rem;
   }
 
-  hr {
-    margin: 16px 0;
-    opacity: 0.3;
+  .preview {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(212,175,55,0.3);
+  }
+
+  .info {
+    color: #f5c542;
+    text-align: center;
+  }
+
+  .error {
+    color: crimson;
+    text-align: center;
   }
 
   button {
     padding: 12px;
     font-weight: bold;
     cursor: pointer;
-  }
-
-  .error {
-    color: crimson;
-  }
-
-  .success {
-    color: #4caf50;
   }
 </style>
