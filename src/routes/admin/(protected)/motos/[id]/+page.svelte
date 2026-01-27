@@ -143,6 +143,28 @@
       saving = false;
     }
   }
+  async function deleteMoto() {
+  if (!confirm('Supprimer définitivement cette moto ?')) return;
+
+  try {
+    const res = await fetch(
+      `${API_URL}/api/admin/motos/${$page.params.id}`,
+      {
+        method: 'DELETE',
+        credentials: 'include'
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error('Erreur suppression moto');
+    }
+
+    goto('/admin/motos');
+  } catch (e) {
+    error = e.message;
+  }
+}
+
 </script>
 
 {#if loading}
@@ -189,6 +211,14 @@
   <button disabled={saving || uploading}>
     {saving ? 'Sauvegarde…' : 'Enregistrer'}
   </button>
+
+  <button
+  type="button"
+  class="danger"
+  on:click={deleteMoto}
+>
+  Supprimer la moto
+</button>
 
 </form>
 
@@ -242,5 +272,19 @@
     color: #f5c542;
     font-size: 0.9rem;
     text-align: center;
+  }
+
+  .danger {
+    background: transparent;
+    border: 1px solid crimson;
+    color: crimson;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .danger:hover {
+    background: crimson;
+    color: white;
   }
 </style>
