@@ -12,7 +12,6 @@
 
   let imageFile = null;
 
-  // modèle local du formulaire
   let moto = {
     nom: '',
     marque: '',
@@ -23,10 +22,10 @@
     cylindree: '',
     moteur: '',
     transmission: '',
-    image: null
+    image: null // { url, public_id }
   };
 
-  // 🔹 Chargement de la moto existante
+  // 🔹 Chargement moto
   onMount(async () => {
     const id = $page.params.id;
 
@@ -35,9 +34,7 @@
         credentials: 'include'
       });
 
-      if (!res.ok) {
-        throw new Error('Impossible de charger la moto');
-      }
+      if (!res.ok) throw new Error('Impossible de charger la moto');
 
       const data = await res.json();
 
@@ -51,7 +48,12 @@
         cylindree: data.caracteristiques?.cylindree ?? '',
         moteur: data.caracteristiques?.moteur ?? '',
         transmission: data.caracteristiques?.transmission ?? '',
-        image: data.image ?? null
+        image: data.image
+          ? {
+              url: data.image.url,
+              public_id: data.image.public_id
+            }
+          : null
       };
 
     } catch (e) {
@@ -71,21 +73,20 @@
     formData.append('image', imageFile);
 
     try {
-      const res = await fetch(
-        `${API_URL}/api/admin/motos/${$page.params.id}/image`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          body: formData
-        }
-      );
+      const res = await fetch(`${API_URL}/api/admin/image`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
 
-      if (!res.ok) {
-        throw new Error('Erreur upload image');
-      }
+      if (!res.ok) throw new Error('Erreur upload image');
 
       const data = await res.json();
-      moto.image = data.image;
+
+      moto.image = {
+        url: data.secure_url,
+        public_id: data.public_id
+      };
 
     } catch (e) {
       error = e.message;
@@ -94,14 +95,16 @@
     }
   }
 
-  // 🔹 Sauvegarde globale
+  // 🔹 Save moto
   async function submit() {
     error = null;
     saving = true;
 
     try {
-      // 1️⃣ upload image si présente
-      await uploadImage();
+      // 1️⃣ upload image si nouvelle
+      if (imageFile) {
+        await uploadImage();
+      }
 
       // 2️⃣ update moto
       const res = await fetch(
@@ -109,15 +112,14 @@
         {
           method: 'PUT',
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             nom: moto.nom,
             marque: moto.marque,
             modele: moto.modele,
             annee: Number(moto.annee),
             couleur: moto.couleur,
+            image: moto.image,
             tarifs: {
               unJour: Number(moto.tarifJour)
             },
@@ -143,28 +145,27 @@
       saving = false;
     }
   }
+
+  // 🔹 Delete moto
   async function deleteMoto() {
-  if (!confirm('Supprimer définitivement cette moto ?')) return;
+    if (!confirm('Supprimer définitivement cette moto ?')) return;
 
-  try {
-    const res = await fetch(
-      `${API_URL}/api/admin/motos/${$page.params.id}`,
-      {
-        method: 'DELETE',
-        credentials: 'include'
-      }
-    );
+    try {
+      const res = await fetch(
+        `${API_URL}/api/admin/motos/${$page.params.id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include'
+        }
+      );
 
-    if (!res.ok) {
-      throw new Error('Erreur suppression moto');
+      if (!res.ok) throw new Error('Erreur suppression moto');
+
+      goto('/admin/motos');
+    } catch (e) {
+      error = e.message;
     }
-
-    goto('/admin/motos');
-  } catch (e) {
-    error = e.message;
   }
-}
-
 </script>
 
 {#if loading}
@@ -175,11 +176,15 @@
 
 <form on:submit|preventDefault={submit} class="form">
 
-  {#if moto.image}
-    <img src={moto.image} alt={moto.nom} class="preview" />
+  {#if moto.image?.url}
+    <img src={moto.image.url} alt={moto.nom} class="preview" />
   {/if}
 
-  <input type="file" accept="image/*" on:change={(e) => imageFile = e.target.files[0]} />
+  <input
+    type="file"
+    accept="image/*"
+    on:change={(e) => imageFile = e.target.files[0]}
+  />
 
   {#if uploading}
     <p class="info">Upload image…</p>
@@ -212,16 +217,11 @@
     {saving ? 'Sauvegarde…' : 'Enregistrer'}
   </button>
 
-  <button
-  type="button"
-  class="danger"
-  on:click={deleteMoto}
->
-  Supprimer la moto
-</button>
+  <button type="button" class="danger" on:click={deleteMoto}>
+    Supprimer la moto
+  </button>
 
 </form>
-
 {/if}
 
 <style>
