@@ -48,7 +48,6 @@
         url: data.secure_url,
         public_id: data.public_id
       };
-
     } catch (e) {
       error = e.message;
     } finally {
@@ -62,7 +61,7 @@
     loading = true;
 
     try {
-      // 1️⃣ upload image si présente
+      // 1️⃣ upload image (optionnelle)
       if (imageFile) {
         await uploadImage();
       }
@@ -80,7 +79,7 @@
           modele: moto.modele,
           annee: Number(moto.annee),
           couleur: moto.couleur,
-          image: uploadedImage,
+          image: uploadedImage, // 👈 objet complet
           tarifs: {
             unJour: Number(moto.tarifJour)
           },
@@ -98,7 +97,6 @@
       }
 
       goto('/admin/motos');
-
     } catch (e) {
       error = e.message;
     } finally {

@@ -5,9 +5,10 @@
   const baseURL = PUBLIC_API_URL2;
   let moto = data.moto;
 
-  const imageURL = moto.image?.startsWith('/uploads')
-    ? `${baseURL}${moto.image}`
-    : moto.image;
+  const imageURL = moto?.image?.url ?? null;
+
+     
+
 </script>
 
 <section class="page">
@@ -15,7 +16,10 @@
 
     <!-- HERO IMAGE -->
     <div class="hero">
-      <img class="moto-img" src={imageURL} alt={moto.nom} />
+     {#if imageURL}
+  <img class="moto-img" src={imageURL} alt={moto.nom} />
+{/if}
+
       <div class="hero-overlay"></div>
 
       <div class="hero-content">

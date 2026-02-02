@@ -2,7 +2,8 @@
   export let moto;
   let isHovered = false;
 
-  const imageURL = moto.image;
+ const imageURL = moto?.image?.url  ;
+
 
 
 
