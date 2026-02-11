@@ -14,11 +14,18 @@
         credentials: 'include'
       });
 
+      // 🔐 Si session expirée → retour login
+      if (res.status === 401) {
+        window.location.href = '/admin/login';
+        return;
+      }
+
       if (!res.ok) {
         throw new Error('Impossible de charger les motos');
       }
 
       motos = await res.json();
+
     } catch (err) {
       error = err.message;
     } finally {
@@ -29,16 +36,14 @@
   // 🔁 Toggle disponibilité
   async function toggleDispo(moto) {
     const previous = moto.disponible;
-    moto.disponible = !previous; // optimistic UI
+    moto.disponible = !previous;
 
     try {
       const res = await fetch(
         `${API_URL}/api/admin/motos/${moto._id}`,
         {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({
             disponible: moto.disponible
@@ -46,42 +51,53 @@
         }
       );
 
-      if (!res.ok) {
-        throw new Error('Erreur serveur');
+      if (res.status === 401) {
+        window.location.href = '/admin/login';
+        return;
       }
 
-    } catch (err) {
-      moto.disponible = previous; // rollback
+      if (!res.ok) throw new Error();
+
+    } catch {
+      moto.disponible = previous;
       alert('Impossible de modifier la disponibilité');
     }
   }
 
-
+  // 🗑️ Suppression moto
   async function deleteMoto(id) {
-  if (!confirm('Supprimer définitivement cette moto ?')) return;
+    if (!confirm('Supprimer définitivement cette moto ?')) return;
 
-  try {
-    const res = await fetch(
-      `${API_URL}/api/admin/motos/${id}`,
-      {
-        method: 'DELETE',
-        credentials: 'include'
+    try {
+      const res = await fetch(
+        `${API_URL}/api/admin/motos/${id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include'
+        }
+      );
+
+      if (res.status === 401) {
+        window.location.href = '/admin/login';
+        return;
       }
-    );
 
-    if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error();
 
-    motos = motos.filter(m => m._id !== id);
-  } catch {
-    alert('Erreur suppression moto');
+      // 🔄 Mise à jour locale sans reload
+      motos = motos.filter(m => m._id !== id);
+
+    } catch {
+      alert('Erreur suppression moto');
+    }
   }
-}
-
 </script>
 
 <h1 class="title">Gestion des motos</h1>
 
-<a class="add-btn" href="/admin/motos/new">➕ Ajouter une moto</a>
+<a class="add-btn" href="/admin/motos/new">
+  ➕ Ajouter une moto
+</a>
 
 {#if loading}
   <p class="info">Chargement des motos…</p>
@@ -89,16 +105,24 @@
 {:else if error}
   <p class="error">{error}</p>
 
+{:else if motos.length === 0}
+  <p class="info">Aucune moto enregistrée.</p>
+
 {:else}
   <ul class="list">
     {#each motos as moto}
       <li class="row {moto.disponible ? '' : 'disabled'}">
+
         <div class="left">
           <strong>{moto.nom}</strong>
-          <span class="price">{moto.tarifs.unJour}€ / jour</span>
+          <span class="price">
+            {moto.tarifs?.unJour ?? '—'}€ / jour
+          </span>
         </div>
 
         <div class="right">
+
+          <!-- Toggle disponibilité -->
           <button
             class="toggle {moto.disponible ? 'on' : 'off'}"
             on:click={() => toggleDispo(moto)}
@@ -106,16 +130,21 @@
             {moto.disponible ? '🟢 Disponible' : '🔴 Indispo'}
           </button>
 
-          <button 
-           class="delete"
-           on:click={() => deleteMoto(moto._id)}
-           >
-  
-</button>
+          <!-- Edition -->
+          <a class="edit" href={`/admin/motos/${moto._id}`}>
+            ✏️
+          </a>
 
+          <!-- Suppression -->
+          <button
+            class="delete"
+            on:click={() => deleteMoto(moto._id)}
+          >
+            🗑️
+          </button>
 
-          <a class="edit" href={`/admin/motos/${moto._id}`}>✏️</a>
         </div>
+
       </li>
     {/each}
   </ul>
@@ -204,6 +233,14 @@
     font-size: 18px;
   }
 
+  .delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: crimson;
+  }
+
   .info {
     color: #ccc;
   }
@@ -211,13 +248,4 @@
   .error {
     color: crimson;
   }
-
-  .delete {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: crimson;
-}
-
 </style>
